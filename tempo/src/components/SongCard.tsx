@@ -52,7 +52,7 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
         ) : (
           <Link
             className="w-32 truncate"
-            to={`/song/${song?.artists[0]?.adamid}`}
+            to={`/artist/${song?.artists[0]?.adamid}`}
           >
             {song?.subtitle}
           </Link>

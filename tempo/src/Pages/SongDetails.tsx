@@ -14,12 +14,12 @@ const SongDetails = () => {
   console.log(data);
 
   return (
-    <section className="">
+    <section className="bg-gradient-to-b from-transparent to-black">
       <HeaderImage song={data} src={data?.images?.coverart} />
       <Separator className="text-muted"/>
-      {/* <ActionBtns data={data} song={data} key={data.key} /> */}
+      <ActionBtns data={data} song={data} key={data.key} />
 
-      <div className={` bg-black`}>
+      <div className={""}>
         <h2 className={` text-center`}>Lyrics</h2>
         <div className="my-10 flex items-center text-center justify-center">
           <div className="">

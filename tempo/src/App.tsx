@@ -13,9 +13,12 @@ import { usePlayer } from "./zustand/music-player";
 import { NavBar, SearchResults } from "./components";
 import SearchList from "./components/search/Search-home";
 import AlbumDetails from "./Pages/AlbumDetails";
+import { useModal } from "./zustand/Modal";
+import AuthModal from "./components/AuthModal";
 
 function App() {
   const { activeSong } = usePlayer();
+  const { isOpen } = useModal();
   let Content = activeSong?.attributes?.name
     ? activeSong?.attributes?.name
     : activeSong?.title;
@@ -44,6 +47,7 @@ function App() {
           <MusicPlayer />
         </section>
       )}
+       <AuthModal />
     </main>
   );
 }

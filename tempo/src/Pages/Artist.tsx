@@ -1,4 +1,5 @@
 import { SongBar, SongCard } from "@/components";
+import ActionBtns from "@/components/ActionBtns";
 import HeaderImage from "@/components/HeaderImage";
 import Title from "@/components/Title";
 import ArtistAlbum from "@/components/artist/ArtistAlbum";
@@ -7,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useArtist, useArtistSummary } from "@/hooks/useArtist";
 import { ArtistSong } from "@/types/types";
 import React from "react";
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Artist = () => {
   const params = useParams();
@@ -20,7 +21,7 @@ const Artist = () => {
     error: err,
   } = useArtistSummary(params.artistId);
 
-  if (isLoading) return <Skeleton className="container h-[40vh]"/>;
+  if (isLoading) return <Skeleton className="container h-[40vh]" />;
   if (isError) return console.log(error);
   if (Loading) return <h1>loading</h1>;
   if (Error) return console.log(err);
@@ -31,7 +32,7 @@ const Artist = () => {
     <section className={"w-full flex flex-col "}>
       {/* artist details */}
       <HeaderImage artistData={artistData[0]} />
-
+      <ActionBtns />
       {/* artist Popular songs */}
       <section className="container space-y-4 p-5">
         <Title title="Popular" />

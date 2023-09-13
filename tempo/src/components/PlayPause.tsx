@@ -24,9 +24,9 @@ const PlayPause = ({
     : isPlaying && activeSong?.title === song?.title;
 
   return id ? (
-    <FaPause size={25} className="text-gray-300" onClick={handlePause} />
+    <FaPause size={30} className="text-gray-300" onClick={handlePause} />
   ) : (
-    <FaPlay size={25} className="text-gray-300" onClick={handlePlay} />
+    <FaPlay size={30} className="text-gray-300" onClick={handlePlay} />
   );
 };
 

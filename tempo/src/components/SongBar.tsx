@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import usePlayPause from "@/hooks/use-Play-Pause";
 import PlayPause from "./PlayPause";
 import { usePlayer } from "@/zustand/music-player";
+import { AiOutlineHeart } from "react-icons/ai";
 
 type Props = {
   data: Song[];
@@ -17,7 +18,10 @@ const SongBar = ({ data, song, i, artistId }: Props) => {
   const { handlePause, handlePlay } = usePlayPause();
 
   return (
-    <div className="flex w-full items-center justify-between " key={song.key}>
+    <div
+      className="flex w-full items-center group justify-between hover:bg-black duration-300 ease-in-out p-2 rounded-md "
+      key={song.key}
+    >
       <div className="flex gap-3 items-center">
         <span>{1 + i}</span>
 
@@ -44,21 +48,26 @@ const SongBar = ({ data, song, i, artistId }: Props) => {
           ) : (
             <Link
               className="w-32 truncate"
-              to={`/song/${song?.artists[0]?.adamid}`}
+              to={`/artist/${song?.artists[0]?.adamid}`}
             >
               {song?.subtitle}
             </Link>
           )}
         </div>
       </div>
-      <PlayPause
-        isPlaying={isPlaying}
-        activeSong={activeSong}
-        song={song}
-        handlePause={() => handlePause()}
-        handlePlay={() => handlePlay(song, data, i)}
-        aristId={artistId}
-      />
+      <div className="flex items-center gap-3">
+        <span className="hidden group-hover:block duration-300 ease-in-out">
+          <AiOutlineHeart size={25} />
+        </span>
+        <PlayPause
+          isPlaying={isPlaying}
+          activeSong={activeSong}
+          song={song}
+          handlePause={() => handlePause()}
+          handlePlay={() => handlePlay(song, data, i)}
+          aristId={artistId}
+        />
+      </div>
     </div>
   );
 };
