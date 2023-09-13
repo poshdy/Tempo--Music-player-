@@ -1,3 +1,4 @@
+import { ArtistSong, Song } from "@/types/types";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -6,7 +7,7 @@ interface MusicPlayerState {
   currentSongs: any[];
   isPlaying: boolean;
   isActive: boolean;
-  activeSong: {};
+  activeSong: any | undefined;
   genreListId: string;
   setActiveSong: (param: any) => any;
   nextSong: (param: any) => any;
@@ -17,7 +18,7 @@ interface MusicPlayerState {
 export const usePlayer = create<MusicPlayerState>()(
   devtools((set) => ({
     currentIndex: 0,
-    activeSong: {},
+    activeSong: undefined,
     currentSongs: [],
     isPlaying: false,
     isActive: false,
@@ -39,6 +40,8 @@ export const usePlayer = create<MusicPlayerState>()(
       set((state) => ({
         currentSongs: state.currentSongs[data]?.tracks
           ? state.currentSongs[data]?.tracks
+          : state.currentSongs[data]?.attributes
+          ? state.currentSongs[data]?.attributes
           : state.currentSongs[data],
 
         currentIndex: data,
@@ -46,14 +49,16 @@ export const usePlayer = create<MusicPlayerState>()(
       }));
     },
     prevSong(data) {
-        set((state) => ({
-            currentSongs: state.currentSongs[data]?.tracks
-              ? state.currentSongs[data]?.tracks
-              : state.currentSongs[data],
-    
-            currentIndex: data,
-            isActive: true,
-          }));
+      set((state) => ({
+        currentSongs: state.currentSongs[data]?.tracks
+          ? state.currentSongs[data]?.tracks
+          : state.currentSongs[data]?.attributes
+          ? state.currentSongs[data]?.attributes
+          : state.currentSongs[data],
+
+        currentIndex: data,
+        isActive: true,
+      }));
     },
     playPause(param) {
       set(() => ({ isPlaying: param }));
