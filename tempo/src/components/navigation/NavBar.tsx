@@ -1,16 +1,15 @@
 import React from "react";
 import { NavigationBTNS, SearchBar, UserState } from "..";
+import { Styles } from "@/Styles";
 
 type Props = {};
 
 const NavBar = (props: Props) => {
   return (
-    <header className="sticky top-0 h-[10vh] left-0 px-4 py-2 bg-[#141414] bg-opacity-40 drop-shadow-lg z-50 backdrop-blur-sm ">
-      <nav className="w-full h-full flex items-center justify-between">
-        <div className="flex gap-3 items-center">
-          <NavigationBTNS />
-          <SearchBar />
-        </div>
+    <header
+      className={`h-screen sticky z-40 left-0 top-0 w-12 md:w-14 lg:w-16 ${Styles.Blur}`}
+    >
+      <nav className="w-full h-full ">
         <UserState />
       </nav>
     </header>

@@ -6,6 +6,7 @@ import { PiMicrophoneStageLight } from "react-icons/pi";
 import { CgMenuRight } from "react-icons/cg";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { Styles } from "@/Styles";
 
 const Subheading = "text-secondary/70 font-bold text-xs ";
 const FlexContainer =
@@ -67,7 +68,7 @@ const SideBar = () => {
   const [mob, setMob] = useState<boolean>(false);
   return (
     <aside
-      className={`h-screen sticky z-40 left-0 top-0 w-14 p-5 flex flex-col bg-black/40 backdrop-blur-sm drop-shadow-lg duration-500 ease-in-out ${
+      className={`h-screen sticky z-40 left-0 top-0 w-14 p-5 flex flex-col ${Styles.Blur} ${Styles.transtions} ${
         mob && "w-[250px]"
       }`}
     >

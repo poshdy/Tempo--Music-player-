@@ -13,13 +13,8 @@ const ListDetails = (props: Props) => {
 
   if (isLoading) return <Skeleton />;
   if (isError) console.error(error);
-  return (
-    <section className="container space-y-12 my-6 bg-gray-200 bg-opacity-20 backdrop-blur-sm rounded-lg drop-shadow-lg p-5">
-      {data?.map((song: Song, i: number) => (
-        <SongBar data={data} i={i} key={song.key} song={song} />
-      ))}
-    </section>
-  );
+
+  return <SongBar data={data} />;
 };
 
 export default ListDetails;

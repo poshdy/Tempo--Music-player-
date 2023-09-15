@@ -1,3 +1,4 @@
+import { Styles } from "@/Styles";
 import { SongBar, SongCard } from "@/components";
 import ActionBtns from "@/components/ActionBtns";
 import HeaderImage from "@/components/HeaderImage";
@@ -29,51 +30,38 @@ const Artist = () => {
   const artistAlbums = Object.values(ArtistSummary?.albums);
 
   return (
-    <section className={"w-full flex flex-col "}>
-      {/* artist details */}
-      <HeaderImage artistData={artistData[0]} />
-      <ActionBtns />
-      {/* artist Popular songs */}
-      <section className="container space-y-4 p-5">
-        <Title title="Popular" />
-        {data?.data?.slice(0, 8).map((track: ArtistSong, i: number) => (
-          <SongBar
-            data={data?.data}
-            song={track}
-            i={i}
-            key={track.id}
-            artistId={params?.artistId}
-          />
-        ))}
-      </section>
+    <section className={"w-full flex flex-col bg-[#1f1f1f]"}>
+      <HeaderImage artistData={artistData[0]} data={data?.data?.slice(0, 8)} />
 
-      {/* artist Discography */}
-      <section className="container my-3 space-y-5">
-        <Title title="Discography" />
-        <Tabs defaultValue="albums" className="w-full">
-          <TabsList>
-            <TabsTrigger value="latest">latest Releases</TabsTrigger>
-            <TabsTrigger value="albums">Popular Albums</TabsTrigger>
-          </TabsList>
-          <TabsContent value="latest">
-            <section className="flex flex-wrap gap-3 items-center  ">
-              {data?.data?.slice(0, 8).map((track: ArtistSong, i: number) => (
-                <SongCard
-                  size="100"
-                  data={data?.data}
-                  song={track}
-                  i={i}
-                  key={track.id}
-                  artistId={params?.artistId}
-                />
-              ))}
-            </section>
-          </TabsContent>
-          <TabsContent value="albums">
-            <ArtistAlbum artistAlbums={artistAlbums} />
-          </TabsContent>
-        </Tabs>
-      </section>
+      <Tabs defaultValue="popular" className={`w-full`}>
+        <TabsList
+          className={`w-full flex p-4 justify-start bg-black `}
+        >
+          <TabsTrigger value="popular">Popular Songs</TabsTrigger>
+          <TabsTrigger value="albums">Popular Albums</TabsTrigger>
+          <TabsTrigger value="latest">latest Releases</TabsTrigger>
+        </TabsList>
+        <TabsContent value="popular">
+          <SongBar data={data?.data?.slice(0, 8)} artistId={params?.artistId} />
+        </TabsContent>
+        <TabsContent value="albums">
+          <ArtistAlbum artistAlbums={artistAlbums} />
+        </TabsContent>
+        <TabsContent value="latest">
+          <section className="flex flex-wrap gap-3 items-center  ">
+            {data?.data?.slice(0, 8).map((track: ArtistSong, i: number) => (
+              <SongCard
+                size="100"
+                data={data?.data}
+                song={track}
+                i={i}
+                key={track.id}
+                artistId={params?.artistId}
+              />
+            ))}
+          </section>
+        </TabsContent>
+      </Tabs>
     </section>
   );
 };

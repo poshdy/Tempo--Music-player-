@@ -10,26 +10,27 @@ type Props = {
 };
 
 const HeroImage = ({ data }: Props) => {
+  // console.log(data[1])
   return (
     <section className="relative w-full">
-      <div className="w-full h-[60vh] opacity-70 rounded-3xl drop-shadow-lg">
+      <div className="w-full h-[60vh]">
         <img
           src={data[1]?.images?.background || data[2]?.images?.coverart}
-          className="w-full h-full object-cover rounded-2xl "
+          className="w-full h-full object-cover"
         />
       </div>
-      <div className="px-16 leading-tight tracking-tighter absolute bottom-0 left-0 flex flex-col justify-center items-start  container h-[50%]">
-        <h2 className="text-[#e4e4e4]">#1</h2>
-        <Link className="text-7xl font-bold" to={`/song/${data[4]?.key}`}>
-          {data[4]?.title?.toUpperCase()}
+      <div className=" p-8 leading-tight tracking-tighter absolute bottom-0 left-0 flex flex-col justify-center items-start container h-[50%]">
+        <h2 className="text-[#e4e4e4] font-semibold">#1</h2>
+        <Link to={`/song/${data[1]?.key}`}>
+          <h2 className="font-bold text-3xl">{data[1]?.title}</h2>
         </Link>
         <Link
           className="text-2xl"
-          to={`/song/${data[4]?.artists?.at(0)?.adamid}`}
+          to={`/song/${data[1]?.artists?.at(0)?.adamid}`}
         >
-          {data[2]?.subtitle}
+          {data[1]?.subtitle}
         </Link>
-        <ActionBtns song={data[4]} data={data} />
+        <ActionBtns song={data[1]} data={data} />
       </div>
     </section>
   );

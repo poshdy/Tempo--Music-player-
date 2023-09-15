@@ -15,6 +15,7 @@ import SearchList from "./components/search/Search-home";
 import AlbumDetails from "./Pages/AlbumDetails";
 import { useModal } from "./zustand/Modal";
 import AuthModal from "./components/AuthModal";
+import { Styles } from "./Styles";
 
 function App() {
   const { activeSong } = usePlayer();
@@ -23,10 +24,9 @@ function App() {
     ? activeSong?.attributes?.name
     : activeSong?.title;
   return (
-    <main className="bg-gradient-to-br  from-[#121212] to-[#303030] text-primary flex relative">
+    <main className=" bg-gradient-to-br from-[#C02425]  to-[#F0CB35] text-primary flex relative">
       <SideBar />
-      <section className="min-h-screen flex-grow text-secondary relative">
-        <NavBar />
+      <section className={`min-h-screen flex-grow bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary relative`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
@@ -41,13 +41,14 @@ function App() {
           <Route path="/lists/:listId" element={<ListDetails />} />
         </Routes>
       </section>
+      <NavBar />
 
       {Content && (
         <section className="fixed h-20 bottom-0 left-0 right-0 flex animate-accordion-up bg-white bg-opacity-20 drop-shadow-lg  backdrop-blur-lg z-50">
           <MusicPlayer />
         </section>
       )}
-       <AuthModal />
+      <AuthModal />
     </main>
   );
 }

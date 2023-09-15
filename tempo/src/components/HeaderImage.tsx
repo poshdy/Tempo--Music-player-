@@ -1,43 +1,53 @@
 import { Styles } from "@/Styles";
+import useDemintion from "@/hooks/use-Diementions";
 import { Song } from "@/types/types";
 
-import React from "react";
-import { Separator } from "./ui/separator";
+import React, { useEffect, useRef, useState } from "react";
+import { Button } from "./ui/button";
+import { PlayPause } from ".";
+import usePlayPause from "@/hooks/use-Play-Pause";
+import { usePlayer } from "@/zustand/music-player";
+import { AiOutlineHeart } from "react-icons/ai";
+import ActionBtns from "./ActionBtns";
 
 type Props = {
   artistData?: any;
-  src?:string
-  song?:Song
+  src?: string;
+  song?: Song;
+  data?: any[];
 };
 
-const HeaderImage = ({ artistData,song ,src}: Props) => {
+const HeaderImage = ({ artistData, song, src, data }: Props) => {
+  // const { handlePause, handlePlay } = usePlayPause();
+  // const { activeSong, isPlaying } = usePlayer();
+
   return (
-    <section
-      style={{
-        backgroundColor: `${artistData?.attributes?.artwork?.textColor3  ? `#${artistData?.attributes?.artwork?.textColor3}` : '#0a1172'}`,
-      }}
-      className="flex flex-col items-center md:flex-row md:items-start h-[40vh] w-full p-5"
-    >
-      <div className="opacity-70">
+    <section className="flex flex-col items-start justify-start md:flex-row gap-1 md:items-end h-[45vh] w-full ">
+      <div className="flex p-5 ">
         <img
-          src={artistData?.attributes?.artwork?.url
-            .replace("{w}", `250`)
-            .replace("{h}", `250`) || src}
+          src={
+            artistData?.attributes?.artwork?.url
+              .replace("{w}", `350`)
+              .replace("{h}", `350`) || src
+          }
           className="object-cover max-w-xs aspect-square w-[250px] aspect-squares "
         />
+        <section className="flex flex-col  p-2">
+          <h2 className={`${Styles.Paragraph} `}>{artistData?.type}</h2>
+          <h2 className={`${Styles.heading} `}>
+            {artistData?.attributes?.name || song?.title}
+          </h2>
+          <h2 className={`${Styles.subHeading} `}>
+            {artistData?.attributes?.artistName}
+          </h2>
+       <ActionBtns/>
+        </section>
       </div>
-      <section className="flex flex-col">
-
-      <h2 className={`${Styles.heading} p-2`}>
-        {artistData?.attributes?.name || song?.title}
-      </h2>
-      <h2 className={`${Styles.subHeading} p-2`}>
-        {artistData?.attributes?.artistName}
-      </h2>
-      </section>
-
     </section>
   );
 };
 
 export default HeaderImage;
+{
+  /* > */
+}

@@ -1,28 +1,23 @@
-import { HeroImage } from "@/components";
-import ActionBtns from "@/components/ActionBtns";
 import HeaderImage from "@/components/HeaderImage";
-import { Separator } from "@/components/ui/separator";
+import Title from "@/components/Title";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { useSong } from "@/hooks/useSong";
-import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const SongDetails = () => {
   const param = useParams();
 
   const { data, isError, error, isLoading } = useSong(param.songId);
-  if (isLoading) return <h1>loadingg</h1>;
-  console.log(data);
+  if (isLoading) return <Skeleton className="w-full h-[50vh]"/>;
 
   return (
-    <section className="bg-gradient-to-b from-transparent to-black">
+    <section className="bg-gradient-to-b from-transparent to-black space-y-5">
       <HeaderImage song={data} src={data?.images?.coverart} />
-      <Separator className="text-muted"/>
-      <ActionBtns data={data} song={data} key={data.key} />
 
-      <div className={""}>
-        <h2 className={` text-center`}>Lyrics</h2>
-        <div className="my-10 flex items-center text-center justify-center">
-          <div className="">
+      <div className={"container flex flex-col justify-center items-center space-y-2"}>
+        <Title title="Lyrics" />
+        <div className=" flex flex-col justify-center items-center ">
             {data?.sections[1]?.type === "LYRICS" ? (
               data?.sections[1]?.text.map((line: string, i: number) => (
                 <p key={i} className={`font-bold`}>
@@ -34,7 +29,6 @@ const SongDetails = () => {
                 Sorry no lyrics found :(
               </p>
             )}
-          </div>
         </div>
       </div>
       {/* <SongBar/>
