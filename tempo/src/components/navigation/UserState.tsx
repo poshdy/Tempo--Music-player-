@@ -6,24 +6,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { AiOutlineLogout } from "react-icons/ai";
+import { useAuth } from "@/hooks/use-Auth";
+import { useSupabase } from "@/hooks/use-SupaBase";
 
 type Props = {};
 
 const UserState = (props: Props) => {
-  return (
-    <div>
-      <span className="w-14 aspect-square rounded-full bg-red-400"/>
-      {/* <Select>
-        <SelectTrigger className="w-[180px] rounded-full bg-background">
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="light">Name</SelectItem>
-          <SelectItem value="dark">Profile</SelectItem>
-          <SelectItem value="system">Logout</SelectItem>
-        </SelectContent>
-      </Select> */}
-    </div>
-  );
+  const { signOut, user } = useAuth();
+  
+  return <div>
+    {user && <AiOutlineLogout size={25} onClick={signOut} />}
+
+    {/* <img src={user?.data.user?.user_metadata?.avatar_url}/> */}
+    <img src={user?.avatar_url}/>
+    </div>;
 };
 
 export default UserState;

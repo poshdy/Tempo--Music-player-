@@ -8,40 +8,37 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { useModal } from "@/zustand/Modal";
-// import { useAuth } from "@/hooks/use-Auth";
+import { useAuth } from "@/hooks/use-Auth";
 import { useNavigate } from "react-router-dom";
+import { Button } from "./ui/button";
+import { useSupabase } from "@/hooks/use-SupaBase";
 
 const AuthModal = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  // const supabase = useSupabase();
 
   const { isOpen, onClose } = useModal();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [error, setError] = useState<any>();
   const isModalOpen = isOpen;
+  const { signInWithGoogle } = useAuth();
 
   const handleClose = () => {
     onClose();
   };
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   setError(null);
+  // const handleSubmit = async () => {
   //   try {
-  //     await SignUp(email, password);
-  //     if (error) {
-  //       setError(error);
-  //     }
+  //     const {error} = await supabase.auth.signInWithOAuth({
+  //       provider:'google'
+  //     })
+  //     console.error(error)
   //   } catch (error) {
-  //     console.log("Something went wrong!");
+  //     console.error(error)
   //   }
   // };
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [user, navigate]);
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent>
@@ -49,14 +46,7 @@ const AuthModal = () => {
           <DialogTitle>Sign Up</DialogTitle>
         </DialogHeader>
         <DialogDescription className="flex items-center justify-center gap-3">
-          <form>
-            <input type="text" onChange={(e) => setEmail(e.target.value)} />
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type="submit">submit</button>
-          </form>
+          <Button onClick={signInWithGoogle}>Sign in with google</Button>
         </DialogDescription>
         {/* {error && "invalid credntials"} */}
         <DialogFooter>

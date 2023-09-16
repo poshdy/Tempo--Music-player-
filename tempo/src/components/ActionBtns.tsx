@@ -5,7 +5,6 @@ import usePlayPause from "@/hooks/use-Play-Pause";
 import { usePlayer } from "@/zustand/music-player";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
-
 import {
   TooltipProvider,
   Tooltip,
@@ -13,9 +12,10 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
 import { useModal } from "@/zustand/Modal";
-// import { useAuth } from "@/hooks/use-Auth";
+import { useAuth } from "@/hooks/use-Auth";
+import { useSupabase } from "@/hooks/use-SupaBase";
+import { useToast } from "./ui/use-toast";
 
 type Props = {
   song: Song;
@@ -23,18 +23,32 @@ type Props = {
 };
 
 const ActionBtns = ({ song, data }: Props) => {
-  const navigate = useNavigate();
+  const supabase = useSupabase();
+  const { toast } = useToast();
   const { handlePause, handlePlay } = usePlayPause();
   const { isPlaying, activeSong } = usePlayer();
-  const { isOpen, onClose, onOpen } = useModal();
-  // const { user } = useAuth();
-  // const handleClick = () => {
-  //   if (!user) {
-  //     onOpen();
-  //   } else {
-  //     console.log("there is a user");
-  //   }
-  // };
+  const { onOpen } = useModal();
+  const { user } = useAuth();
+
+  const handleClick = async () => {
+    if (!user) {
+      onOpen();
+    } else {
+      try {
+        await supabase.from("favorite-songs").insert({
+          userId: user.id,
+          name: song.title,
+          Image: song?.images?.coverart,
+          songId: song?.key,
+          artistId: song?.artists[1]?.adamid,
+        });
+        toast({ title: `${song.title} added to favorite list` });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   return (
     <div className="flex gap-3 items-center my-2 font-bold ">
       <Button className="flex items-center justify-center bg-yellow-300 bg-opacity-40 border-2 rounded-full">
@@ -49,7 +63,7 @@ const ActionBtns = ({ song, data }: Props) => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <AiOutlineHeart size={30} />
+            <AiOutlineHeart onClick={handleClick} size={30} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Add to Likes</p>
@@ -72,8 +86,3 @@ const ActionBtns = ({ song, data }: Props) => {
 };
 
 export default ActionBtns;
-<div className="flex justify-self-end  gap-1 ">
-  <Button className="p-2 border-white border-2 bg-yellow-300 rounded-full">
-    <AiOutlineHeart size={25} />
-  </Button>
-</div>;

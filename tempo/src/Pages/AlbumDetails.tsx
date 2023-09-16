@@ -9,24 +9,16 @@ type Props = {};
 
 const AlbumDetails = (props: Props) => {
   const param = useParams();
-
   const { data, isError, isLoading, error } = useArtistAlbums(param.albumId);
   if (isLoading) return <Skeleton className="container h-[40vh]" />;
   if (isError) return console.log(error);
   const Data = data?.data[0]?.relationships?.tracks?.data;
+
   return (
     <section>
       <HeaderImage artistData={data?.data[0]} />
       <section className="container space-y-4 p-5">
-        {Data.map((album: any, i: number) => (
-          <SongBar
-            data={Data}
-            i={i}
-            song={album}
-            artistId={album.id}
-            key={album.id}
-          />
-        ))}
+        <SongBar artistId={param?.albumId} data={Data} />
       </section>
     </section>
   );

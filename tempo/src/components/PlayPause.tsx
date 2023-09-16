@@ -19,11 +19,11 @@ const PlayPause = ({
   handlePause,
   handlePlay,
 }: Props) => {
-  let id = aristId
+  let IsArtistId = aristId
     ? isPlaying && activeSong?.attributes?.name === song?.name
     : isPlaying && activeSong?.title === song?.title;
 
-  return id ? (
+  return IsArtistId ? (
     <FaPause size={20} className="text-gray-300" onClick={handlePause} />
   ) : (
     <FaPlay size={20} className="text-gray-300" onClick={handlePlay} />

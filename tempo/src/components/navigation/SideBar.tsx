@@ -22,44 +22,22 @@ const NavLinks = ({ mob }: { mob: boolean }) => {
       title: "Top Charts",
       icon: FaChartSimple,
     },
-    // { id: "albums", path: "/", title: "Albums", icon: PiMicrophoneStageLight },
-    { id: "likes", path: "/", title: "Likes", icon: AiOutlineHeart },
   ];
 
   return (
-    <nav className="space-y-2 font-medium text-secondary flex flex-col justify-around w-full h-[90vh]">
+    <nav className=" flex flex-col justify-center gap-4 w-full h-[90vh]">
       {navLinks.map((link) => (
-        <ul
-          key={link.id}
-          className={` flex flex-col  gap-2 ${
-            mob ? "items-start" : "items-center"
+        <NavLink
+          className={` flex flex-col  hover:text-yellow-300 ${Styles.transtions} text-secondary gap-5 ${
+            mob ? "items-start " : "items-center flex-row"
           }`}
+          key={link.id}
+          to={link.path}
         >
-          <NavLink to={link.path}>
-            <li className={FlexContainer}>
-              <link.icon />
-              {mob && <li>{link.title}</li>}
-            </li>
-          </NavLink>
-        </ul>
+          <link.icon size={22} />
+          {mob && <h3>{link.title}</h3>}
+        </NavLink>
       ))}
-
-      <section className="flex flex-col gap-3">
-        {mob ? (
-          <>
-            <h2 className={`${Subheading} flex items-center justify-between`}>
-              Playlists
-              <FaList />
-            </h2>
-            <NavLink to={"/discover"}>Playlist 1</NavLink>
-            <NavLink to={"/"}>Playlist 1</NavLink>
-            <NavLink to={"/"}>Playlist 1</NavLink>
-            <NavLink to={"/"}>Playlist 1</NavLink>
-          </>
-        ) : (
-          <FaList />
-        )}
-      </section>
     </nav>
   );
 };
@@ -68,15 +46,32 @@ const SideBar = () => {
   const [mob, setMob] = useState<boolean>(false);
   return (
     <aside
-      className={`h-screen sticky z-40 left-0 top-0 w-14 p-5 flex flex-col ${Styles.Blur} ${Styles.transtions} ${
-        mob && "w-[250px]"
-      }`}
+      className={`h-screen sticky z-40 left-0 top-0 w-14  py-3 flex flex-col items-center justify-between ${
+        Styles.Blur
+      } ${Styles.transtions} ${mob && "w-[250px]"}`}
     >
-      <h1 className={`text-xl text-yellow-300 font-bold`}>
-        <CgMenuRight onClick={() => setMob((prev) => !prev)} />
-      </h1>
+      <CgMenuRight
+        size={25}
+        className={"text-yellow-300"}
+        onClick={() => setMob((prev) => !prev)}
+      />
 
       <NavLinks mob={mob} />
+
+      <section className="flex flex-col gap-3">
+        {mob && (
+          <h2 className={`${Subheading} flex items-center justify-between`}>
+            Playlists
+            <FaList />
+          </h2>
+        )}
+        <span className="w-9 aspect-square rounded-md bg-yellow-300 flex items-center justify-center">
+          <AiOutlineHeart size={25} />
+        </span>
+        <span className="w-9 aspect-square rounded-md bg-yellow-300 flex items-center justify-center">
+          <AiOutlineHeart size={25} />
+        </span>
+      </section>
     </aside>
   );
 };

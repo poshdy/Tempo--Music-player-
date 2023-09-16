@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Skeleton } from "./ui/skeleton";
+import React from "react";
 import { Song } from "@/types/types";
 import { Link } from "react-router-dom";
 import ActionBtns from "./ActionBtns";
 
 type Props = {
-
   data: Song[];
 };
 
 const HeroImage = ({ data }: Props) => {
-  // console.log(data[1])
   return (
     <section className="relative w-full">
       <div className="w-full h-[60vh]">

@@ -1,13 +1,6 @@
 import { Styles } from "@/Styles";
-import useDemintion from "@/hooks/use-Diementions";
 import { Song } from "@/types/types";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { PlayPause } from ".";
-import usePlayPause from "@/hooks/use-Play-Pause";
-import { usePlayer } from "@/zustand/music-player";
-import { AiOutlineHeart } from "react-icons/ai";
 import ActionBtns from "./ActionBtns";
 
 type Props = {
@@ -18,9 +11,7 @@ type Props = {
 };
 
 const HeaderImage = ({ artistData, song, src, data }: Props) => {
-  // const { handlePause, handlePlay } = usePlayPause();
-  // const { activeSong, isPlaying } = usePlayer();
-
+  const SONG = artistData ? artistData : song
   return (
     <section className="flex flex-col items-start justify-start md:flex-row gap-1 md:items-end h-[45vh] w-full ">
       <div className="flex p-5 ">
@@ -40,7 +31,7 @@ const HeaderImage = ({ artistData, song, src, data }: Props) => {
           <h2 className={`${Styles.subHeading} `}>
             {artistData?.attributes?.artistName}
           </h2>
-       <ActionBtns/>
+          <ActionBtns song={SONG}  />
         </section>
       </div>
     </section>
@@ -48,6 +39,4 @@ const HeaderImage = ({ artistData, song, src, data }: Props) => {
 };
 
 export default HeaderImage;
-{
-  /* > */
-}
+

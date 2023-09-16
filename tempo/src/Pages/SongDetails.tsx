@@ -31,14 +31,6 @@ const SongDetails = () => {
             )}
         </div>
       </div>
-      {/* <SongBar/>
-        data={data}
-        activeSong={activeSong}
-        artistId={artistId}
-        isPlaying={isPlaying}
-        handlePauseClick={handlePauseClick}
-        handlePlayClick={handlePlayClick}
-      /> */}
     </section>
   );
 };

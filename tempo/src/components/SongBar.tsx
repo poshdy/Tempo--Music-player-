@@ -3,16 +3,13 @@ import { Link } from "react-router-dom";
 import usePlayPause from "@/hooks/use-Play-Pause";
 import PlayPause from "./PlayPause";
 import { usePlayer } from "@/zustand/music-player";
-import { AiOutlineHeart } from "react-icons/ai";
-
 import { Styles } from "@/Styles";
 import Title from "./Title";
+import LikeButton from "./LikeButton";
 
 type Props = {
   data: any[];
   artistId?: string;
-  // track: track | any;
-  // i: number;
 };
 
 const trackBar = ({ data, artistId }: Props) => {
@@ -49,30 +46,30 @@ const trackBar = ({ data, artistId }: Props) => {
               }
               className="w-12 aspect-square object-cover rounded-md"
             />
-          <div className="flex flex-col items-start gap-2 text-sm">
-            {artistId ? (
-              <h2>{track?.attributes?.name}</h2>
-            ) : (
-              <Link
-                className="w-32 truncate font-bold "
-                to={`/song/${track.key}`}
-              >
-                {track.title}
-              </Link>
-            )}
-            {artistId ? (
-              <h2>{track?.attributes?.albumName}</h2>
-            ) : (
-              <Link
-                className="w-32 truncate"
-                to={`/artist/${track?.artists[0]?.adamid}`}
-              >
-                {track?.subtitle}
-              </Link>
-            )}
-          </div>
+            <div className="flex flex-col items-start gap-2 text-sm">
+              {artistId ? (
+                <h2>{track?.attributes?.name}</h2>
+              ) : (
+                <Link
+                  className="w-32 truncate font-bold "
+                  to={`/song/${track.key}`}
+                >
+                  {track.title}
+                </Link>
+              )}
+              {artistId ? (
+                <h2>{track?.attributes?.albumName}</h2>
+              ) : (
+                <Link
+                  className="w-32 truncate"
+                  to={`/artist/${track?.artists[0]?.adamid}`}
+                >
+                  {track?.subtitle}
+                </Link>
+              )}
+            </div>
           </section>
-          <AiOutlineHeart size={25} />
+          <LikeButton artistId={artistId} song={track} />
         </section>
       ))}
     </section>
@@ -80,18 +77,3 @@ const trackBar = ({ data, artistId }: Props) => {
 };
 
 export default trackBar;
-{
-  /**/
-}
-
-{
-  /* */
-}
-
-{
-  /* */
-}
-
-{
-  /* */
-}

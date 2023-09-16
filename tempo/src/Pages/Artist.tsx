@@ -1,19 +1,14 @@
-import { Styles } from "@/Styles";
 import { SongBar, SongCard } from "@/components";
-import ActionBtns from "@/components/ActionBtns";
 import HeaderImage from "@/components/HeaderImage";
-import Title from "@/components/Title";
 import ArtistAlbum from "@/components/artist/ArtistAlbum";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useArtist, useArtistSummary } from "@/hooks/useArtist";
 import { ArtistSong } from "@/types/types";
-import React from "react";
 import { useParams } from "react-router-dom";
 
 const Artist = () => {
   const params = useParams();
-
   const { data, isLoading, isError, error } = useArtist(params.artistId);
   const {
     data: ArtistSummary,
@@ -34,9 +29,7 @@ const Artist = () => {
       <HeaderImage artistData={artistData[0]} data={data?.data?.slice(0, 8)} />
 
       <Tabs defaultValue="popular" className={`w-full`}>
-        <TabsList
-          className={`w-full flex p-4 justify-start bg-black `}
-        >
+        <TabsList className={`w-full flex p-4 justify-start bg-black `}>
           <TabsTrigger value="popular">Popular Songs</TabsTrigger>
           <TabsTrigger value="albums">Popular Albums</TabsTrigger>
           <TabsTrigger value="latest">latest Releases</TabsTrigger>
@@ -45,7 +38,7 @@ const Artist = () => {
           <SongBar data={data?.data?.slice(0, 8)} artistId={params?.artistId} />
         </TabsContent>
         <TabsContent value="albums">
-          <ArtistAlbum artistAlbums={artistAlbums} />
+          <ArtistAlbum  artistAlbums={artistAlbums} />
         </TabsContent>
         <TabsContent value="latest">
           <section className="flex flex-wrap gap-3 items-center  ">
