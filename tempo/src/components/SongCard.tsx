@@ -38,7 +38,10 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
         {artistId ? (
           <h2 className="truncate w-full">{song?.attributes?.name}</h2>
         ) : (
-          <Link className=" w-full truncate" to={`/song/${song.key || song.songId}`}>
+          <Link
+            className=" w-full truncate"
+            to={`/song/${song.key || song.songId}`}
+          >
             {song.title || song?.name}
           </Link>
         )}
@@ -51,9 +54,7 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
           <Link
             className="w-full truncate text-xs font-medium"
             to={`/artist/${
-              song?.artists
-                ? song?.artists[0]?.adamid
-                : song?.artistId
+              song?.artists ? song?.artists[0]?.adamid : song?.artistId
             }`}
           >
             {song?.subtitle}
@@ -61,7 +62,6 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
         )}
       </div>
 
-      {/* <div className=" duration-300 ease-in-out absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full bg-white bg-opacity-20 "> */}
       <div
         className={`opacity-0 group-hover:opacity-100 bg-yellow-900 ${Styles.Blur} rounded-full p-3 flex justify-center items-center absolute right-5 bottom-20 ${Styles.transtions} `}
       >
