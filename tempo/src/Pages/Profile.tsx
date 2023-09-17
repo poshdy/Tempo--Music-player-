@@ -14,7 +14,20 @@ import ArtistCard from "@/components/artist/ArtistCard";
 import ArtistAlbum from "@/components/artist/ArtistAlbum";
 
 type Props = {};
-
+const Breakpoints = {
+  320: {
+    slidesPerView: 2,
+    spaceBetween: 10,
+  },
+  480: {
+    slidesPerView: 4,
+    spaceBetween: 30,
+  },
+  640: {
+    slidesPerView: 5,
+    spaceBetween: 15,
+  },
+}
 const Profile = (props: Props) => {
   const supabase = useSupabase();
   const { user } = useAuth();
@@ -84,23 +97,8 @@ const Profile = (props: Props) => {
         <Title title="Liked Songs" />
 
         <Swiper
-          pagination
           loop={true}
-          breakpoints={{
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            480: {
-              slidesPerView: 4,
-              spaceBetween: 30,
-            },
-            640: {
-              slidesPerView: 5,
-              spaceBetween: 15,
-            },
-          }}
-          modules={[Navigation, Pagination]}
+          breakpoints={Breakpoints}
         >
           {FavoriteSongs?.data?.map((song, i: number) => (
             <SwiperSlide key={song.key}>
@@ -112,25 +110,10 @@ const Profile = (props: Props) => {
       <section className="space-y-3 my-3">
         <Title title="Liked Artists" />
         <Swiper
-          pagination
           loop={true}
-          breakpoints={{
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            480: {
-              slidesPerView: 4,
-              spaceBetween: 30,
-            },
-            640: {
-              slidesPerView: 5,
-              spaceBetween: 15,
-            },
-          }}
-          modules={[Navigation, Pagination]}
+          breakpoints={Breakpoints}
         >
-          {ArtistData?.data?.map((artist, i: number) => (
+          {ArtistData?.data?.map((artist,) => (
             <SwiperSlide key={artist.artistId}>
               <ArtistCard artist={artist} />
             </SwiperSlide>

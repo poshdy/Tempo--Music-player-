@@ -21,7 +21,8 @@ const PlayPause = ({
 }: Props) => {
   let IsArtistId = aristId
     ? isPlaying && activeSong?.attributes?.name === song?.name
-    : isPlaying && activeSong?.title === song?.title || song?.name
+    : (isPlaying && activeSong?.title === song?.title) ||
+      (isPlaying && activeSong?.name === song?.name);
 
   return IsArtistId ? (
     <FaPause size={20} className="text-gray-300" onClick={handlePause} />

@@ -9,7 +9,7 @@ const ArtistAlbum = ({ artistAlbums }: Props) => {
   const Navigate = useNavigate();
   return (
     <section className="flex flex-wrap gap-3 items-center  ">
-      {artistAlbums.slice(0, 8).map((album: any) => (
+      {artistAlbums?.slice(0,6).map((album: any) => (
         <div
           key={album?.id || album?.albumId}
           onClick={() =>

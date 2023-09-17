@@ -73,7 +73,6 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
           handlePlay={() => handlePlay(song, data, i)}
         />
       </div>
-      {/* </div> */}
     </section>
   );
 };
