@@ -11,14 +11,21 @@ const ArtistAlbum = ({ artistAlbums }: Props) => {
     <section className="flex flex-wrap gap-3 items-center  ">
       {artistAlbums.slice(0, 8).map((album: any) => (
         <div
-          key={album?.id}
-          onClick={() => Navigate(`/artist/album/${album?.id}`)}
+          key={album?.id || album?.albumId}
+          onClick={() =>
+            Navigate(
+              `/artist/album/${album?.albumId ? album?.albumId : album?.id}`
+            )
+          }
           className="hover:scale-105 duration-300 ease-in-out rounded-md"
         >
           <img
-            src={album?.attributes?.artwork?.url
-              .replace("{w}", "150")
-              .replace("{h}", "150")}
+            src={
+              album?.attributes?.artwork?.url
+                .replace("{w}", "150")
+                .replace("{h}", "150") ||
+              album?.Image?.replace("{w}", "150").replace("{h}", "150")
+            }
           />
         </div>
       ))}

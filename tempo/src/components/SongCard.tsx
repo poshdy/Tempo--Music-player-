@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PlayPause from "./PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import usePlayPause from "@/hooks/use-Play-Pause";
+import { Styles } from "@/Styles";
 
 type Props = {
   song: Song | any;
@@ -17,59 +18,65 @@ const SongCard = ({ artistId, song, i, data, size }: Props) => {
   const { isPlaying, activeSong } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
   return (
-    <div
-      style={{ width: `${size}` }}
-      className="relative rounded-2xl group duration-300 ease-in-out overflow-clip"
+    <section
+      className={`relative w-36 h-48 md:w-40 md:h-52 space-y-3 p-2 hover:scale-105 rounded-md ${Styles.Blur} flex flex-col items-center justify-center bg-yellow-900 group ${Styles.transtions}`}
     >
-      <img
-        className="w-full h-full object-cover -z-50"
-        src={
-          artistId
-            ? song?.attributes?.artwork?.url
-                .replace("{w}", "220")
-                .replace("{h}", "220")
-            : song?.images?.coverart
-        }
-      />
+      <div className="w-[90%] p-1 aspect-square">
+        <img
+          className="w-full h-full object-cover rounded-md -z-50"
+          src={
+            artistId
+              ? song?.attributes?.artwork?.url
+                  .replace("{w}", "220")
+                  .replace("{h}", "220")
+              : song?.images?.coverart || song?.Image
+          }
+        />
+      </div>
 
-      <div className="w-full cursor-pointer absolute z-30 bottom-0 left-0 py-4 h-20 bg-white bg-opacity-20 backdrop-blur-lg drop-shadow-lg flex flex-col items-center justify-center gap-2">
+      <div className="flex flex-col  text-sm  w-[90%] font-bold items-start">
         {artistId ? (
-          <h2 className="text-sm font-bold truncate w-fit">
-            {song?.attributes?.name}
-          </h2>
+          <h2 className="truncate w-full">{song?.attributes?.name}</h2>
         ) : (
-          <Link className="w-32 truncate font-bold " to={`/song/${song.key}`}>
-            {song.title}
+          <Link className=" w-full truncate" to={`/song/${song.key || song.songId}`}>
+            {song.title || song?.name}
           </Link>
         )}
 
         {artistId ? (
-          <h2 className="text-sm font-medium truncate max-w-[100px]">
+          <h2 className="w-full truncate text-xs font-medium">
             {song?.attributes?.albumName}
           </h2>
         ) : (
           <Link
-            className="w-32 truncate"
-            to={`/artist/${song?.artists[0]?.adamid}`}
+            className="w-full truncate text-xs font-medium"
+            to={`/artist/${
+              song?.artists
+                ? song?.artists[0]?.adamid
+                : song?.artistId
+            }`}
           >
             {song?.subtitle}
           </Link>
         )}
       </div>
 
-      <div className="hidden group-hover:block duration-300 ease-in-out absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full bg-white bg-opacity-20 ">
-        <div className="flex justify-center items-center w-full h-full cursor-pointer">
-          <PlayPause
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            song={song}
-            handlePause={() => handlePause()}
-            handlePlay={() => handlePlay(song, data, i)}
-          />
-        </div>
+      {/* <div className=" duration-300 ease-in-out absolute z-20 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full bg-white bg-opacity-20 "> */}
+      <div
+        className={`opacity-0 group-hover:opacity-100 bg-yellow-900 ${Styles.Blur} rounded-full p-3 flex justify-center items-center absolute right-5 bottom-20 ${Styles.transtions} `}
+      >
+        <PlayPause
+          isPlaying={isPlaying}
+          activeSong={activeSong}
+          song={song}
+          handlePause={() => handlePause()}
+          handlePlay={() => handlePlay(song, data, i)}
+        />
       </div>
-    </div>
+      {/* </div> */}
+    </section>
   );
 };
 
 export default SongCard;
+// hidden group-hover:block

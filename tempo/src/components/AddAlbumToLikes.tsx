@@ -5,16 +5,14 @@ import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { useToast } from "./ui/use-toast";
-import { AiOutlineCheck } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import { Styles } from "@/Styles";
 
 type Props = {
-  artistData: any;
+  data: any;
 };
 
-function FollowArtist({ artistData }: Props) {
-  const [isFollowed, setIsFollowed] = useState<boolean>(false);
-  const [Error, setError] = useState()
+const AddAlbumToLikes = ({ data }: Props) => {
   const { onOpen } = useModal();
   const { user } = useAuth();
   const supabase = useSupabase();
@@ -24,19 +22,18 @@ function FollowArtist({ artistData }: Props) {
       onOpen();
     }
     try {
-      const { error } = await supabase.from("favorite-artists").insert({
+      const { error } = await supabase.from("favorite-albums").insert({
         userId: user?.id,
-        artistId: artistData.id,
-        Image: artistData?.attributes?.artwork?.url,
-        name: artistData?.attributes?.name,
-        isfollowed:true
+        albumId: data.id,
+        Image: data?.attributes?.artwork?.url,
+        name: data?.attributes?.name,
       });
-      if(error){
-        console.error(error.details)
+      if (error) {
+        console.log(error);
+        toast({ title: `opps`, description: `${error}` });
       }
-      setIsFollowed(true);
       toast({
-        title: `${artistData?.attributes?.name} added to Following list`,
+        title: `${data?.attributes?.name} added to Favorite list`,
       });
     } catch (error) {
       toast({ title: `opps`, description: `${error}` });
@@ -47,19 +44,9 @@ function FollowArtist({ artistData }: Props) {
       onClick={handleClick}
       className={`w-56 flex ${Styles.transtions} items-center gap-1 justify-center bg-transparent border-2 mt-3 rounded-full hover:bg-yellow-300 hover:text-black`}
     >
-      {isFollowed ? (
-        <>
-          Followed
-          <AiOutlineCheck size={25} />
-        </>
-      ) : (
-        <>
-          Follow
-          <GrAdd size={25} />
-        </>
-      )}
+      <AiOutlineHeart size={25} />
     </Button>
   );
-}
+};
 
-export default FollowArtist;
+export default AddAlbumToLikes;

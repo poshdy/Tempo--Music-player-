@@ -22,7 +22,7 @@ export const useFetchSongs = () => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     select(data) {
-      return data?.data?.tracks?.slice(0,8)
+      return data?.data?.tracks
     },
   });
 };

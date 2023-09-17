@@ -14,7 +14,11 @@ const ListDetails = (props: Props) => {
   if (isLoading) return <Skeleton />;
   if (isError) console.error(error);
 
-  return <SongBar data={data} />;
+  return (
+    <section className="py-10 container">
+      <SongBar data={data} />
+    </section>
+  );
 };
 
 export default ListDetails;

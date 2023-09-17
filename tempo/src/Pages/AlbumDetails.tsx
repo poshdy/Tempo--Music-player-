@@ -16,7 +16,7 @@ const AlbumDetails = (props: Props) => {
 
   return (
     <section>
-      <HeaderImage artistData={data?.data[0]} />
+      <HeaderImage ID="album" artistData={data?.data[0]} />
       <section className="container space-y-4 p-5">
         <SongBar artistId={param?.albumId} data={Data} />
       </section>

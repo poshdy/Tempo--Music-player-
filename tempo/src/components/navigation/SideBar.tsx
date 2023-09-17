@@ -3,39 +3,29 @@ import { FaChartSimple } from "react-icons/fa6";
 import { AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
 import { BsDisc } from "react-icons/bs";
 import { PiMicrophoneStageLight } from "react-icons/pi";
+import { BiLibrary } from "react-icons/bi";
 import { CgMenuRight } from "react-icons/cg";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Styles } from "@/Styles";
+import { useAuth } from "@/hooks/use-Auth";
 
-const Subheading = "text-secondary/70 font-bold text-xs ";
-const FlexContainer =
-  "flex item-center gap-6 text-lg hover:text-yellow-300 hover:scale-105 duration-300 ease-in-out  ";
-const NavLinks = ({ mob }: { mob: boolean }) => {
-  const navLinks = [
-    { id: "home", path: "/", title: "explore", icon: AiOutlineCompass },
-    { id: "search", path: "/search", title: "search", icon: FaSearch },
-    { id: "discover", path: "/search", title: "Discover", icon: BsDisc },
-    {
-      id: "charts",
-      path: "/top-charts",
-      title: "Top Charts",
-      icon: FaChartSimple,
-    },
-  ];
+const navLinks = [
+  { id: "home", path: "/", icon: AiOutlineCompass },
+  { id: "search", path: "/search", icon: FaSearch },
+  { id: "library", path: "/profile", icon: BiLibrary },
+];
 
+const NavLinks = () => {
   return (
-    <nav className=" flex flex-col justify-center gap-4 w-full h-[90vh]">
+    <nav className=" flex flex-row justify-around items-center md:flex-col gap-2 md:justify-center md:items-center  w-full md:h-[90vh]">
       {navLinks.map((link) => (
         <NavLink
-          className={` flex flex-col  hover:text-yellow-300 ${Styles.transtions} text-secondary gap-5 ${
-            mob ? "items-start " : "items-center flex-row"
-          }`}
+          className={` bg-gray-950 p-2 rounded-lg  hover:text-yellow-300 hover:scale-105 ${Styles.transtions} text-secondary `}
           key={link.id}
           to={link.path}
         >
-          <link.icon size={22} />
-          {mob && <h3>{link.title}</h3>}
+          <link.icon size={25} />
         </NavLink>
       ))}
     </nav>
@@ -43,34 +33,25 @@ const NavLinks = ({ mob }: { mob: boolean }) => {
 };
 
 const SideBar = () => {
-  const [mob, setMob] = useState<boolean>(false);
+  const { user } = useAuth();
+
   return (
     <aside
-      className={`h-screen sticky z-40 left-0 top-0 w-14  py-3 flex flex-col items-center justify-between ${
-        Styles.Blur
-      } ${Styles.transtions} ${mob && "w-[250px]"}`}
+      className={`h-14 w-full md:w-16 p-1 md:h-screen rounded-full md:rounded-none fixed md:sticky z-50 md:z-40 bottom-0 left-0 md:top-0  py-3 flex flex-row md:flex-col md:items-center md:justify-center ${Styles.Blur} ${Styles.transtions} `}
     >
-      <CgMenuRight
-        size={25}
-        className={"text-yellow-300"}
-        onClick={() => setMob((prev) => !prev)}
-      />
+      <CgMenuRight size={25} className={"text-yellow-300 hidden md:flex "} />
 
-      <NavLinks mob={mob} />
+      <NavLinks />
 
-      <section className="flex flex-col gap-3">
-        {mob && (
-          <h2 className={`${Subheading} flex items-center justify-between`}>
-            Playlists
-            <FaList />
-          </h2>
+      <section className="hidden md:flex flex-col">
+        {user && (
+          <Link
+            to={"/likes"}
+            className="w-9 aspect-square rounded-md bg-yellow-300 flex items-center justify-center"
+          >
+            <AiOutlineHeart size={25} />
+          </Link>
         )}
-        <span className="w-9 aspect-square rounded-md bg-yellow-300 flex items-center justify-center">
-          <AiOutlineHeart size={25} />
-        </span>
-        <span className="w-9 aspect-square rounded-md bg-yellow-300 flex items-center justify-center">
-          <AiOutlineHeart size={25} />
-        </span>
       </section>
     </aside>
   );

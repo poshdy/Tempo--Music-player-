@@ -23,10 +23,14 @@ const LikeButton = ({ artistId, song }: Props) => {
         await supabase.from("favorite-songs").insert({
           userId: user?.id,
           songId: artistId ? song?.id : song.key,
+          artistId: song?.artists?.at(0)?.adamid,
           Image: artistId
             ? song?.attributes?.artwork?.url
             : song?.images?.coverart,
           name: artistId ? song?.attributes?.name : song.title,
+          uri: artistId
+            ? song?.attributes?.previews[0]?.url
+            : song?.hub?.actions[1]?.uri,
         });
         toast({
           title: `${

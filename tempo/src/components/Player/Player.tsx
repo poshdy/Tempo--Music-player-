@@ -42,7 +42,7 @@ const Player = ({
 
   
 
-  return <audio ref={audioRef} src={activeSong.hub?.actions[1]?.uri || activeSong?.attributes?.previews[0]?.url}  loop={repeat}
+  return <audio ref={audioRef} src={activeSong.hub?.actions[1]?.uri || activeSong?.attributes?.previews[0]?.url || activeSong?.uri}  loop={repeat}
   onEnded={onEnded}
   onTimeUpdate={onTimeUpdate}
   onLoadedData={onLoadedData}/>;

@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 
 const Search = () => {
   return (
-    <section className="container">
+    <section className="container pt-10">
       <SearchBar/>
-      {/* <h1 className={Styles.subHeading}>Search Home Page</h1> */}
+    
       <Outlet />
     </section>
   );

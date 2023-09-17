@@ -16,13 +16,15 @@ import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { useToast } from "./ui/use-toast";
+import LikeButton from "./LikeButton";
 
 type Props = {
   song: Song;
   data: Song[];
+  type:'song' | 'artistSong'
 };
 
-const ActionBtns = ({ song, data }: Props) => {
+const ActionBtns = ({ song, data ,type}: Props) => {
   const supabase = useSupabase();
   const { toast } = useToast();
   const { handlePause, handlePlay } = usePlayPause();
@@ -30,24 +32,7 @@ const ActionBtns = ({ song, data }: Props) => {
   const { onOpen } = useModal();
   const { user } = useAuth();
 
-  const handleClick = async () => {
-    if (!user) {
-      onOpen();
-    } else {
-      try {
-        await supabase.from("favorite-songs").insert({
-          userId: user.id,
-          name: song.title,
-          Image: song?.images?.coverart,
-          songId: song?.key,
-          artistId: song?.artists[1]?.adamid,
-        });
-        toast({ title: `${song.title} added to favorite list` });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  };
+ 
 
   return (
     <div className="flex gap-3 items-center my-2 font-bold ">
@@ -57,13 +42,13 @@ const ActionBtns = ({ song, data }: Props) => {
           activeSong={activeSong}
           song={song}
           handlePause={() => handlePause()}
-          handlePlay={() => handlePlay(song, data, 2)}
+          handlePlay={() => handlePlay(song, data, 1)}
         />
       </Button>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-            <AiOutlineHeart onClick={handleClick} size={30} />
+           <LikeButton song={song}/>
           </TooltipTrigger>
           <TooltipContent>
             <p>Add to Likes</p>

@@ -23,10 +23,14 @@ const Artist = () => {
   if (Error) return console.log(err);
   const artistData = Object.values(ArtistSummary?.artists);
   const artistAlbums = Object.values(ArtistSummary?.albums);
-
+  // const ARTIST_ID = artistData[0]?.id;
   return (
-    <section className={"w-full flex flex-col bg-[#1f1f1f]"}>
-      <HeaderImage artistData={artistData[0]} data={data?.data?.slice(0, 8)} />
+    <section className={"w-full flex flex-col "}>
+      <HeaderImage
+        ID='artist'
+        artistData={artistData[0]}
+        data={data?.data?.slice(0, 8)}
+      />
 
       <Tabs defaultValue="popular" className={`w-full`}>
         <TabsList className={`w-full flex p-4 justify-start bg-black `}>
@@ -38,7 +42,7 @@ const Artist = () => {
           <SongBar data={data?.data?.slice(0, 8)} artistId={params?.artistId} />
         </TabsContent>
         <TabsContent value="albums">
-          <ArtistAlbum  artistAlbums={artistAlbums} />
+          <ArtistAlbum artistAlbums={artistAlbums} />
         </TabsContent>
         <TabsContent value="latest">
           <section className="flex flex-wrap gap-3 items-center  ">

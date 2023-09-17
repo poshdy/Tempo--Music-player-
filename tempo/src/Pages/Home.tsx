@@ -6,11 +6,10 @@ import { Song } from "@/types/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import Title from "@/components/Title";
 import { useAuth } from "@/hooks/use-Auth";
-
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar } from "swiper/modules";
 const Home = () => {
-
-  const {user} = useAuth()
+  const { user } = useAuth();
   // console.log(user)
   const { data, error, isError, isLoading } = useFetchSongs();
   if (isError) {
@@ -30,23 +29,42 @@ const Home = () => {
     );
   }
   return (
-    <section className="space-y-16">
-      <HeroImage data={data?.slice(0, 4)} />
-{/* <h2>welcome :{user?.email}</h2> */}
-      <SongBar data={data} />
+    <section className="space-y-10">
+      <HeroImage isHome={true} data={data[1]} />
+      {/* <h2>welcome :{user?.email}</h2> */}
+      <SongBar data={data.slice(0, 10)} />
 
       <section className="container">
         <Title title="Top Artists" />
         <TopArtists data={data} />
       </section>
-      <section className="container space-y-2">
+      <section className="container space-y-2 mb-5">
         <Title title="Trending Songs" />
-        <div className="flex flex-wrap gap-4">
-
-        {data?.map((song: Song, i: number) => (
-          <SongCard size="250px" key={song.key} data={data} i={i} song={song} />
+        <Swiper
+          pagination
+          loop={true}
+          breakpoints={{
+            320: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            480: {
+              slidesPerView: 4,
+              spaceBetween: 30,
+            },
+            640: {
+              slidesPerView: 5,
+              spaceBetween: 15,
+            },
+          }}
+          modules={[Navigation, Pagination]}
+        >
+          {data?.map((song: Song, i: number) => (
+            <SwiperSlide  key={song.key}>
+              <SongCard size="200px" data={data} i={i} song={song} />
+            </SwiperSlide>
           ))}
-          </div>
+        </Swiper>
       </section>
     </section>
   );
