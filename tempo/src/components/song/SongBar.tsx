@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import usePlayPause from "@/hooks/use-Play-Pause";
-import PlayPause from "./PlayPause";
+import PlayPause from "../PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import { Styles } from "@/Styles";
-import Title from "./Title";
-import LikeButton from "./LikeButton";
+import Title from "../Title";
+import LikeButton from "../LikeButton";
 
 type Props = {
   data: any[];

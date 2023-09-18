@@ -24,12 +24,12 @@ function App() {
   const { isOpen } = useModal();
   let Content = activeSong?.attributes?.name
     ? activeSong?.attributes?.name
-    : activeSong?.title || activeSong?.name
+    : activeSong?.title || activeSong?.name;
   return (
     <main className=" bg-gradient-to-br  from-[#C02425] to-[#F0CB35] text-primary md:flex relative">
       <SideBar />
       <section
-        className={`min-h-screen md:flex-grow bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary relative`}
+        className={`min-h-screen md:flex-grow overflow-hidden bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary relative`}
       >
         <NavBar />
         <Routes>

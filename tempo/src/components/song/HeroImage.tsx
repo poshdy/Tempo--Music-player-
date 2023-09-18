@@ -1,7 +1,7 @@
 import React from "react";
 import { Song } from "@/types/types";
 import { Link } from "react-router-dom";
-import ActionBtns from "./ActionBtns";
+import ActionBtns from "../ActionBtns";
 
 type Props = {
   data: Song;
@@ -11,7 +11,7 @@ type Props = {
 const HeroImage = ({ data, isHome }: Props) => {
   return (
     <section className="relative w-full ">
-      <div className="w-full h-[60vh] rounded-b-3xl overflow-clip">
+      <div className="w-full h-[50vh] rounded-b-3xl overflow-clip">
         <img
           src={data?.images?.background || data?.images?.coverart}
           className="w-full h-full object-cover"

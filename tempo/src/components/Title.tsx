@@ -1,12 +1,14 @@
 import { Styles } from "@/Styles";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 type Props = {
   title: string;
+  className:string
 };
 
-const Title = ({ title }: Props) => {
-  return <h1 className={Styles.subHeading}> {title}</h1>;
+const Title = ({ title , className }: Props) => {
+  return <h1 className={cn('text-2xl font-bold tracking-tighter leading-tight',className)}> {title}</h1>;
 };
 
 export default Title;

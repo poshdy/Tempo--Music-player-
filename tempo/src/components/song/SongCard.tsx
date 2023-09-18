@@ -1,25 +1,26 @@
 import { Song } from "@/types/types";
 import React from "react";
 import { Link } from "react-router-dom";
-import PlayPause from "./PlayPause";
+import PlayPause from "../PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import usePlayPause from "@/hooks/use-Play-Pause";
 import { Styles } from "@/Styles";
+import { cn } from "@/lib/utils";
 
 type Props = {
   song: Song | any;
   i: number;
   data: any[];
-  size: string;
   artistId?: string;
+  className:string
 };
 
-const SongCard = ({ artistId, song, i, data, size }: Props) => {
+const SongCard = ({ artistId, song, i, data ,className}: Props) => {
   const { isPlaying, activeSong } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
   return (
     <section
-      className={`relative w-36 h-48 md:w-40 md:h-52 space-y-3 p-2 hover:scale-105 rounded-md ${Styles.Blur} flex flex-col items-center justify-center bg-yellow-900 group ${Styles.transtions}`}
+      className={cn('relative w-36 h-48 md:w-40 md:h-52 p-1 hover:scale-105 rounded-md flex flex-col items-center justify-center bg-yellow-900 group',className)}
     >
       <div className="w-[90%] p-1 aspect-square">
         <img

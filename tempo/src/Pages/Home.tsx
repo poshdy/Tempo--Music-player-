@@ -7,7 +7,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Title from "@/components/Title";
 import { useAuth } from "@/hooks/use-Auth";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+import { Styles } from "@/Styles";
+import Wrapper from "@/components/Wrapper";
 const Home = () => {
   const { user } = useAuth();
   // console.log(user)
@@ -29,43 +31,44 @@ const Home = () => {
     );
   }
   return (
-    <section className="space-y-10">
+    <section className="space-y-10 w-full">
       <HeroImage isHome={true} data={data[1]} />
-      {/* <h2>welcome :{user?.email}</h2> */}
-      <SongBar data={data.slice(0, 10)} />
+      <SongBar data={data?.slice(0, 10)} />
 
-      <section className="container">
-        <Title title="Top Artists" />
+      <Wrapper>
+        <Title className="md:text-4xl" title="Top Artists" />
         <TopArtists data={data} />
-      </section>
-      <section className="container space-y-2 mb-5">
-        <Title title="Trending Songs" />
+      </Wrapper>
+
+      <Wrapper>
+        <Title className="md:text-4xl" title="Trending Songs" />
         <Swiper
-          pagination
+          modules={[EffectCoverflow, Pagination, Navigation]}
+          effect="coverflow"
+          grabCursor={true}
+          centeredSlides={true}
           loop={true}
-          breakpoints={{
-            320: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            480: {
-              slidesPerView: 4,
-              spaceBetween: 30,
-            },
-            640: {
-              slidesPerView: 5,
-              spaceBetween: 15,
-            },
+          slidesPerView={4}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+            slideShadows: false,
           }}
-          modules={[Navigation, Pagination]}
         >
           {data?.map((song: Song, i: number) => (
-            <SwiperSlide  key={song.key}>
-              <SongCard size="200px" data={data} i={i} song={song} />
+            <SwiperSlide>
+              <SongCard
+                className={`md:w-52 md:h-60 ${Styles.transtions}`}
+                data={data}
+                i={i}
+                song={song}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
-      </section>
+      </Wrapper>
     </section>
   );
 };

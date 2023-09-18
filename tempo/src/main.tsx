@@ -12,7 +12,7 @@ import { supabase } from "./lib/supabaseClient.ts";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import "swiper/css/effect-coverflow";
 
 const queryClient = new QueryClient();
 const { data } = await supabase().auth.getSession();
