@@ -17,17 +17,16 @@ const Artist = () => {
     error: err,
   } = useArtistSummary(params.artistId);
 
-  if (isLoading) return <Skeleton className="container h-[40vh]" />;
-  if (isError) return console.log(error);
-  if (Loading) return <h1>loading</h1>;
-  if (Error) return console.log(err);
+  if (isLoading || Loading) return <Skeleton className="container h-[40vh]" />;
+  if (isError || Error ) return console.error(error);
+
   const artistData = Object.values(ArtistSummary?.artists);
   const artistAlbums = Object.values(ArtistSummary?.albums);
-  // const ARTIST_ID = artistData[0]?.id;
+
   return (
     <section className={"w-full flex flex-col "}>
       <HeaderImage
-        ID='artist'
+        ID="artist"
         artistData={artistData[0]}
         data={data?.data?.slice(0, 8)}
       />
@@ -39,7 +38,11 @@ const Artist = () => {
           <TabsTrigger value="latest">latest Releases</TabsTrigger>
         </TabsList>
         <TabsContent value="popular">
-          <SongBar data={data?.data?.slice(0, 8)} artistId={params?.artistId} />
+          <SongBar
+            title="top hits"
+            data={data?.data?.slice(0, 8)}
+            artistId={params?.artistId}
+          />
         </TabsContent>
         <TabsContent value="albums">
           <ArtistAlbum artistAlbums={artistAlbums} />
@@ -48,12 +51,12 @@ const Artist = () => {
           <section className="flex flex-wrap gap-3 items-center  ">
             {data?.data?.slice(0, 8).map((track: ArtistSong, i: number) => (
               <SongCard
-                size="100"
                 data={data?.data}
                 song={track}
                 i={i}
                 key={track.id}
                 artistId={params?.artistId}
+                className="w-40 h-60"
               />
             ))}
           </section>

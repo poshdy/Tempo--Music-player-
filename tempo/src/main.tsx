@@ -16,6 +16,8 @@ import "swiper/css/effect-coverflow";
 
 const queryClient = new QueryClient();
 const { data } = await supabase().auth.getSession();
+// const { data:user } = await supabase().auth.getUser();
+// console.log(user)
 // console.log(data)
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

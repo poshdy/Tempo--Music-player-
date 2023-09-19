@@ -14,14 +14,14 @@ const SongDetails = () => {
 
   return (
     <section className="bg-gradient-to-b from-transparent to-black space-y-5">
-      <HeroImage isHome={false} data={data} />
+      <HeroImage song={data} isHome={false} data={data} />
 
       <div
         className={
           "container flex flex-col justify-center items-center space-y-2"
         }
       >
-        <Title title="Lyrics" />
+        <Title className="md:text-4xl" title="Lyrics" />
         <div className=" flex flex-col justify-center items-center ">
           {data?.sections && data?.sections[1]?.type === "LYRICS" ? (
             data?.sections[1]?.text.map((line: string, i: number) => (

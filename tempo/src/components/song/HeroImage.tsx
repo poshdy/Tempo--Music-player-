@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import ActionBtns from "../ActionBtns";
 
 type Props = {
-  data: Song;
+  data: Song[];
+  song:Song
   isHome: boolean;
 };
 
-const HeroImage = ({ data, isHome }: Props) => {
+const HeroImage = ({ data, isHome ,song }: Props) => {
   return (
     <section className="relative w-full ">
       <div className="w-full h-[50vh] rounded-b-3xl overflow-clip">
         <img
-          src={data?.images?.background || data?.images?.coverart}
+          src={song?.images?.background || song?.images?.coverart}
           className="w-full h-full object-cover"
         />
       </div>
@@ -23,19 +24,19 @@ const HeroImage = ({ data, isHome }: Props) => {
 
           <Link
             className="font-bold text-xl md:text-3xl"
-            to={`/song/${data?.key}`}
+            to={`/song/${song?.key}`}
           >
-            {data?.title}
+            {song?.title}
           </Link>
           <Link
             className="text-lg md:text-2xl"
-            to={`/song/${data?.artists?.at(0)?.adamid}`}
+            to={`/song/${song?.artists?.at(0)?.adamid}`}
           >
-            {data?.subtitle}
+            {song?.subtitle}
           </Link>
         </div>
         <div className="self-end">
-          <ActionBtns type="song" song={data} />
+          <ActionBtns isHome data={data} type="song" song={data} />
         </div>
       </div>
     </section>

@@ -32,8 +32,8 @@ const Home = () => {
   }
   return (
     <section className="space-y-10 w-full">
-      <HeroImage isHome={true} data={data[1]} />
-      <SongBar data={data?.slice(0, 10)} />
+      <HeroImage isHome={true} song={data[1]} data={data} />
+      <SongBar title="Top Charts" data={data?.slice(0, 10)} />
 
       <Wrapper>
         <Title className="md:text-4xl" title="Top Artists" />
@@ -58,7 +58,7 @@ const Home = () => {
           }}
         >
           {data?.map((song: Song, i: number) => (
-            <SwiperSlide>
+            <SwiperSlide key={song.key}>
               <SongCard
                 className={`md:w-52 md:h-60 ${Styles.transtions}`}
                 data={data}

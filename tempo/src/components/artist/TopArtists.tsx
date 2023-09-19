@@ -26,7 +26,7 @@ const TopArtists = ({ data }: Props) => {
       }}
     >
       {data?.map((artist) => (
-        <SwiperSlide>
+        <SwiperSlide key={artist?.artists[0]?.adamid}>
           <ArtistCard className="w-24 md:w-56" artist={artist} />
         </SwiperSlide>
       ))}

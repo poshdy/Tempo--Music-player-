@@ -1,8 +1,8 @@
 import { AuthResponse, Session } from "@supabase/supabase-js";
 
-import React, { useEffect, useContext, createContext} from "react";
+import React, { useEffect, useContext, createContext, useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "./use-SupaBase";
 
@@ -10,7 +10,7 @@ type USER = {
   id: string;
   avatar_url: string | null;
   email: string | null;
-  userName: string | null;
+  user_name: string | null;
 };
 
 interface ContextI {
@@ -19,7 +19,7 @@ interface ContextI {
   error: any;
   SignUp: (email: string, password: string) => Promise<string | null>;
   signOut: () => Promise<void>;
-  SignInWithEmail: (email: string, password: string) => Promise<string | null>;
+  SignUpWithMagiclink: (email: string) => Promise<string | null>;
   signInWithGoogle: () => Promise<void>;
 }
 const Context = createContext<ContextI>({
@@ -28,29 +28,28 @@ const Context = createContext<ContextI>({
   isLoading: true,
   signOut: async () => {},
   SignUp: async (email: string, password: string) => null,
-  SignInWithEmail: async (email: string, password: string) => null,
+  SignUpWithMagiclink: async (email: string) => null,
   signInWithGoogle: async () => {},
 });
 
 export default function SupabaseAuthProvider({
   children,
-  session
+  session,
 }: {
   children: React.ReactNode;
-  session:Session | null
+  session: Session | null;
 }) {
-
-
+  const queryClient = useQueryClient();
   const supabase = useSupabase();
   const navigate = useNavigate();
-
 
   const getUser = async () => {
     const { data: user, error } = await supabase
       .from("users")
       .select("*")
-      .eq("id", session?.user?.id)
+      .eq("id", session?.user.id)
       .single();
+
     if (error) {
       return null;
     } else {
@@ -58,16 +57,18 @@ export default function SupabaseAuthProvider({
     }
   };
 
-const {data:user , isLoading , error} = useQuery({
-  queryKey:['user-session'],
-  queryFn:getUser,
-})
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["user-session"],
+    queryFn: getUser,
+    enabled: !!session?.user.id,
+  });
 
-  const SignUp = async (
-    email: string,
-    password: string
-  ) => {
-    const { data, error } = await supabase.auth.signUp({
+  const SignUp = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -78,11 +79,8 @@ const {data:user , isLoading , error} = useQuery({
     return null;
   };
 
-  const SignInWithEmail = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const SignUpWithMagiclink = async (email: string) => {
+    const { data, error } = await supabase.auth.signInWithOtp({ email });
 
     if (error) {
       return error.message;
@@ -90,7 +88,6 @@ const {data:user , isLoading , error} = useQuery({
 
     return null;
   };
- 
 
   const signInWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
@@ -117,20 +114,17 @@ const {data:user , isLoading , error} = useQuery({
     };
   }, [navigate, supabase, session?.access_token]);
 
+  // useEffect(()=>{
+  // const {data} = supabase.auth.onAuthStateChange(async(event)=>{
 
-
-
-// useEffect(()=>{
-// const {data} = supabase.auth.onAuthStateChange(async(event)=>{
-
-// })
-// },[])
+  // })
+  // },[])
 
   const value = {
     user,
     error,
     SignUp,
-    SignInWithEmail,
+    SignUpWithMagiclink,
     signOut,
     isLoading,
     signInWithGoogle,

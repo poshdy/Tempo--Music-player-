@@ -19,36 +19,38 @@ import { useToast } from "./ui/use-toast";
 import LikeButton from "./LikeButton";
 
 type Props = {
-  song: Song;
+  song: Song | any;
   data: Song[];
-  type:'song' | 'artistSong'
+  type: "song" | "artistSong";
+  isHome: boolean;
 };
 
-const ActionBtns = ({ song, data ,type}: Props) => {
+const ActionBtns = ({ song, data, type, isHome }: Props) => {
   const supabase = useSupabase();
   const { toast } = useToast();
-  const { handlePause, handlePlay } = usePlayPause();
-  const { isPlaying, activeSong } = usePlayer();
+  // const { handlePause, handlePlay } = usePlayPause();
+  // const { isPlaying, activeSong } = usePlayer();
   const { onOpen } = useModal();
   const { user } = useAuth();
 
- 
-
   return (
     <div className="flex gap-3 items-center my-2 font-bold ">
-      <Button className="flex items-center justify-center bg-yellow-300 bg-opacity-40 border-2 rounded-full">
-        <PlayPause
-          isPlaying={isPlaying}
-          activeSong={activeSong}
-          song={song}
-          handlePause={() => handlePause()}
-          handlePlay={() => handlePlay(song, data, 1)}
-        />
-      </Button>
+      {/* {isHome && (
+        <Button className="flex items-center justify-center bg-yellow-300 bg-opacity-40 border-2 rounded-full">
+          <PlayPause
+            isPlaying={isPlaying}
+            activeSong={activeSong}
+            song={song}
+            handlePause={() => handlePause()}
+            handlePlay={() => handlePlay(song, data, 1)}
+          />
+        </Button>
+      )} */}
+
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
-           <LikeButton song={song}/>
+            <LikeButton song={song} />
           </TooltipTrigger>
           <TooltipContent>
             <p>Add to Likes</p>

@@ -6,27 +6,29 @@ import {
   SongDetails,
   Search,
   ListDetails,
+  AlbumDetails,
+  Profile,
+  Likes,
 } from "./Pages";
-import SideBar from "./components/navigation/SideBar";
-import MusicPlayer from "./components/Player/MusicPlayer";
+
 import { usePlayer } from "./zustand/music-player";
-import { NavBar, SearchResults } from "./components";
-import SearchList from "./components/search/Search-home";
-import AlbumDetails from "./Pages/AlbumDetails";
-import { useModal } from "./zustand/Modal";
-import AuthModal from "./components/AuthModal";
-import { Styles } from "./Styles";
-import Profile from "./Pages/Profile";
-import Likes from "./Pages/Likes";
+import {
+  NavBar,
+  SearchResults,
+  SideBar,
+  AuthModal,
+  MusicPlayer,
+  SearchList,
+} from "./components";
+import Dashboard from "./Pages/Dashboard";
 
 function App() {
   const { activeSong } = usePlayer();
-  const { isOpen } = useModal();
   let Content = activeSong?.attributes?.name
     ? activeSong?.attributes?.name
     : activeSong?.title || activeSong?.name;
   return (
-    <main className=" bg-gradient-to-br  from-[#C02425] to-[#F0CB35] text-primary md:flex relative">
+    <main className="bg-gradient-to-br from-[#C02425] to-[#F0CB35] text-primary md:flex relative">
       <SideBar />
       <section
         className={`min-h-screen md:flex-grow overflow-hidden bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary relative`}
@@ -44,6 +46,7 @@ function App() {
             <Route path=":searchterm" element={<SearchResults />} />
           </Route>
           <Route path="/lists/:listId" element={<ListDetails />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/likes" element={<Likes />} />
         </Routes>

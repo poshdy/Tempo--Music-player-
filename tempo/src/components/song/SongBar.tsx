@@ -10,15 +10,16 @@ import LikeButton from "../LikeButton";
 type Props = {
   data: any[];
   artistId?: string;
+  title:string
 };
 
-const trackBar = ({ data, artistId }: Props) => {
+const trackBar = ({ data, artistId ,title}: Props) => {
   const { activeSong, isPlaying } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
 
   return (
     <section className={`container flex flex-col gap-3`}>
-      <Title title="track bar" />
+      <Title className="md:text-4xl" title={title} />
       {data?.map((track, i: number) => (
         <section
           className={`w-full flex items-center justify-between p-1 group rounded-md  hover:bg-black ${Styles.transtions}`}

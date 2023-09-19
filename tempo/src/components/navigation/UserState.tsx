@@ -1,14 +1,7 @@
 import React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { AiOutlineLogout } from "react-icons/ai";
 import { useAuth } from "@/hooks/use-Auth";
-import { useSupabase } from "@/hooks/use-SupaBase";
+import { Button } from "../ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,11 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSupabase } from "@/hooks/use-SupaBase";
+import { useModal } from "@/zustand/Modal";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
 const UserState = (props: Props) => {
-  const { signOut, user, signInWithGoogle } = useAuth();
+  const { signOut, user } = useAuth();
+  const { onOpen } = useModal();
 
   return (
     <>
@@ -36,7 +33,13 @@ const UserState = (props: Props) => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <h2 onClick={signInWithGoogle}>Login</h2>
+        <Button
+          variant={"secondary"}
+          className="px-2 py-1 rounded-full "
+          onClick={onOpen}
+        >
+          Log in
+        </Button>
       )}
     </>
   );

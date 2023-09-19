@@ -9,6 +9,16 @@ import NavigationBTNS from "./navigation/NavigationBTNS";
 import SearchBar from "./search/SearchBar";
 import UserState from "./navigation/UserState";
 import NavBar from "./navigation/NavBar";
+import HeaderImage from "./HeaderImage";
+import AuthModal from "./AuthModal";
+import LikeButton from "./LikeButton";
+import ActionBtns from "./ActionBtns";
+import FollowArtist from "./FollowArtist";
+import AddAlbumToLikes from "./AddAlbumToLikes";
+import Title from "./Title";
+import Wrapper from "./Wrapper";
+import MusicPlayer from "./Player/MusicPlayer";
+import SearchList from "./search/Search-home";
 export {
   NavBar,
   NavigationBTNS,
@@ -21,4 +31,14 @@ export {
   HeroImage,
   SearchResults,
   PlayPause,
+  ActionBtns,
+  AddAlbumToLikes,
+  AuthModal,
+  FollowArtist,
+  HeaderImage,
+  LikeButton,
+  Title,
+  MusicPlayer,
+  Wrapper,
+  SearchList
 };
