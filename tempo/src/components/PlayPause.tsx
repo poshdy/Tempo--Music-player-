@@ -1,12 +1,11 @@
 import { ArtistSong, Song } from "@/types/types";
 import { FaPause, FaPlay } from "react-icons/fa";
 
-import React from "react";
 
 type Props = {
   isPlaying: boolean;
   activeSong: any;
-  song: any;
+  song: Song & ArtistSong;
   handlePause: () => void;
   handlePlay: () => void;
   aristId?: string;
@@ -19,7 +18,7 @@ const PlayPause = ({
   handlePause,
   handlePlay,
 }: Props) => {
-  let IsArtistId = aristId ? isPlaying && activeSong?.attributes?.name === song?.name : isPlaying && activeSong?.title === song?.title ?  isPlaying && activeSong?.name === song?.name : null
+  let IsArtistId = aristId ? isPlaying && activeSong?.attributes?.name === song?.attributes.name : isPlaying && activeSong?.title === song?.title 
     
       
 

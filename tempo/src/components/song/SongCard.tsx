@@ -1,36 +1,38 @@
-import { Song } from "@/types/types";
-import React from "react";
 import { Link } from "react-router-dom";
 import PlayPause from "../PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import usePlayPause from "@/hooks/use-Play-Pause";
 import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
+import { Song, ArtistSong } from "@/types/types";
+
+type SongType = Song & ArtistSong;
 
 type Props = {
-  song: Song | any;
+  song: SongType;
   i: number;
-  data: any[];
+  data: Song[] | ArtistSong[];
   artistId?: string;
-  className:string
+  className: string;
 };
 
-const SongCard = ({ artistId, song, i, data ,className}: Props) => {
+const SongCard = ({ artistId, song, i, data, className }: Props) => {
   const { isPlaying, activeSong } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
   return (
     <section
-      className={cn('relative w-36 h-48 md:w-40 md:h-52 p-1 hover:scale-105 rounded-md flex flex-col items-center justify-center bg-yellow-900 group',className)}
+      className={cn(
+        "relative w-36 h-48 md:w-40 md:h-52 p-1 hover:scale-105 rounded-md flex flex-col items-center justify-center bg-yellow-900 group",
+        className
+      )}
     >
       <div className="w-[90%] p-1 aspect-square">
         <img
           className="w-full h-full object-cover rounded-md -z-50"
           src={
-            artistId
-              ? song?.attributes?.artwork?.url
-                  .replace("{w}", "220")
-                  .replace("{h}", "220")
-              : song?.images?.coverart || song?.Image
+            song?.attributes?.artwork?.url
+              .replace("{w}", "220")
+              .replace("{h}", "220") || song?.images?.coverart
           }
         />
       </div>
@@ -39,11 +41,8 @@ const SongCard = ({ artistId, song, i, data ,className}: Props) => {
         {artistId ? (
           <h2 className="truncate w-full">{song?.attributes?.name}</h2>
         ) : (
-          <Link
-            className=" w-full truncate"
-            to={`/song/${song.key || song.songId}`}
-          >
-            {song.title || song?.name}
+          <Link className=" w-full truncate" to={`/song/${song.key}`}>
+            {song.title}
           </Link>
         )}
 
@@ -54,9 +53,7 @@ const SongCard = ({ artistId, song, i, data ,className}: Props) => {
         ) : (
           <Link
             className="w-full truncate text-xs font-medium"
-            to={`/artist/${
-              song?.artists ? song?.artists[0]?.adamid : song?.artistId
-            }`}
+            to={`/artist/${song?.artists[0]?.adamid}`}
           >
             {song?.subtitle}
           </Link>
@@ -79,4 +76,3 @@ const SongCard = ({ artistId, song, i, data ,className}: Props) => {
 };
 
 export default SongCard;
-// hidden group-hover:block

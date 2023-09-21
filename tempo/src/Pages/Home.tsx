@@ -1,32 +1,32 @@
 import { useFetchSongs } from "@/hooks/use-fetchSong";
-import { HeroImage, SongBar, SongCard, TopArtists } from "../components/index";
-import React from "react";
-
-import { Song } from "@/types/types";
+import {
+  HeroImage,
+  SongBar,
+  SongCard,
+  TopArtists,
+  Wrapper,
+} from "../components/index";
+import { ArtistSong, Song } from "@/types/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import Title from "@/components/Title";
 import { useAuth } from "@/hooks/use-Auth";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import { Styles } from "@/Styles";
-import Wrapper from "@/components/Wrapper";
 const Home = () => {
-  const { user } = useAuth();
-  // console.log(user)
   const { data, error, isError, isLoading } = useFetchSongs();
   if (isError) {
     console.error(error);
   }
   if (isLoading) {
     return (
-      <section className="grid grid-cols-4 gap-3 justify-items-center">
-        <Skeleton className="container h-[60vh] col-span-4" />
-        <Skeleton className="w-[50%] aspect-square" />
-        <Skeleton className="w-[50%] aspect-square" />
-        <Skeleton className="w-[50%] aspect-square" />
-        <Skeleton className="w-[50%] aspect-square" />
-        <Skeleton className="w-[50%] aspect-square" />
-        <Skeleton className="w-[50%] aspect-square" />
+      <section className="space-y-10 w-full">
+        <Skeleton className="h-[60vh] w-full rounded-b-lg" />
+        {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
+          <section key={id}>
+            <Skeleton className="container h-10 py-2" />
+          </section>
+        ))}
       </section>
     );
   }
@@ -57,7 +57,7 @@ const Home = () => {
             slideShadows: false,
           }}
         >
-          {data?.map((song: Song, i: number) => (
+          {data?.map((song: Song & ArtistSong, i: number) => (
             <SwiperSlide key={song.key}>
               <SongCard
                 className={`md:w-52 md:h-60 ${Styles.transtions}`}

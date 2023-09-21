@@ -37,7 +37,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/top-charts" element={<NotFound />} />
           <Route path="/song/:songId" element={<SongDetails />} />
           <Route path="/artist/:artistId" element={<Artist />} />
           <Route path="/artist/album/:albumId" element={<AlbumDetails />} />

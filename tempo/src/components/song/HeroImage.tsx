@@ -12,7 +12,7 @@ type Props = {
 const HeroImage = ({ data, isHome ,song }: Props) => {
   return (
     <section className="relative w-full ">
-      <div className="w-full h-[50vh] rounded-b-3xl overflow-clip">
+      <div className="w-full h-[65vh] rounded-b-3xl overflow-clip">
         <img
           src={song?.images?.background || song?.images?.coverart}
           className="w-full h-full object-cover"
