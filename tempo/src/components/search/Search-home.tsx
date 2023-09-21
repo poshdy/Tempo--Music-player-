@@ -20,7 +20,7 @@ const SearchList = () => {
   if (isError) console.log(error);
   return (
     <section className="w-full my-3 space-y-3 flex flex-col items-center justify-center md:items-start">
-      <Title title="Discover by genres" />
+      <Title className="text-2xl md:text-3xl" title="Discover by genres" />
       <section className="flex flex-wrap items-center  gap-2 ">
         {data?.genres?.map((grenre: Genre) => (
           <section

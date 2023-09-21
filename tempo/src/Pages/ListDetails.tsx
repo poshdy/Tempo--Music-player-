@@ -16,7 +16,7 @@ const ListDetails = (props: Props) => {
 
   return (
     <section className="py-10 container">
-      <SongBar data={data} />
+      <SongBar title="Genre" data={data} />
     </section>
   );
 };

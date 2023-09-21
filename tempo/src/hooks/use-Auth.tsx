@@ -1,8 +1,8 @@
-import { AuthResponse, Session } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 
 import React, { useEffect, useContext, createContext, useState } from "react";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "./use-SupaBase";
 
@@ -34,14 +34,23 @@ const Context = createContext<ContextI>({
 
 export default function SupabaseAuthProvider({
   children,
-  session,
 }: {
   children: React.ReactNode;
-  session: Session | null;
 }) {
-  const queryClient = useQueryClient();
+  const [session, setSession] = useState<Session | null>(null);
+
   const supabase = useSupabase();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
 
   const getUser = async () => {
     const { data: user, error } = await supabase
@@ -80,7 +89,7 @@ export default function SupabaseAuthProvider({
   };
 
   const SignUpWithMagiclink = async (email: string) => {
-    const { data, error } = await supabase.auth.signInWithOtp({ email });
+    const { error } = await supabase.auth.signInWithOtp({ email });
 
     if (error) {
       return error.message;
@@ -99,26 +108,6 @@ export default function SupabaseAuthProvider({
     await supabase.auth.signOut();
     navigate("/");
   };
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, Session) => {
-      if (Session?.access_token !== session?.access_token) {
-        navigate(0);
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [navigate, supabase, session?.access_token]);
-
-  // useEffect(()=>{
-  // const {data} = supabase.auth.onAuthStateChange(async(event)=>{
-
-  // })
-  // },[])
 
   const value = {
     user,

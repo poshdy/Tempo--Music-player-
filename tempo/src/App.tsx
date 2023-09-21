@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
-  Artist,
   NotFound,
   SongDetails,
   Search,
@@ -9,6 +8,7 @@ import {
   AlbumDetails,
   Profile,
   Likes,
+  Artist,
 } from "./Pages";
 
 import { usePlayer } from "./zustand/music-player";
@@ -45,7 +45,7 @@ function App() {
             <Route path=":searchterm" element={<SearchResults />} />
           </Route>
           <Route path="/lists/:listId" element={<ListDetails />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/likes" element={<Likes />} />
         </Routes>

@@ -4,7 +4,8 @@ import ArtistAlbum from "@/components/artist/ArtistAlbum";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useArtist, useArtistSummary } from "@/hooks/useArtist";
-import { ArtistSong } from "@/types/types";
+import { ArtistSong, Song } from "@/types/types";
+
 import { useParams } from "react-router-dom";
 
 const Artist = () => {
@@ -17,8 +18,12 @@ const Artist = () => {
     error: err,
   } = useArtistSummary(params.artistId);
 
-  if (isLoading || Loading) return <Skeleton className="container h-[40vh]" />;
-  if (isError || Error ) return console.error(error);
+  if (isLoading || Loading) {
+    return <Skeleton className="container h-[40vh]" />;
+  }
+  if (isError || Error) {
+    console.error("artistSummary Err", err || "artistError", error);
+  }
 
   const artistData = Object.values(ArtistSummary?.artists);
   const artistAlbums = Object.values(ArtistSummary?.albums);
@@ -49,16 +54,18 @@ const Artist = () => {
         </TabsContent>
         <TabsContent value="latest">
           <section className="flex flex-wrap gap-3 items-center  ">
-            {data?.data?.slice(0, 8).map((track: ArtistSong, i: number) => (
-              <SongCard
-                data={data?.data}
-                song={track}
-                i={i}
-                key={track.id}
-                artistId={params?.artistId}
-                className="w-40 h-60"
-              />
-            ))}
+            {data?.data
+              ?.slice(0, 8)
+              .map((track: Song & ArtistSong, i: number) => (
+                <SongCard
+                  data={data?.data}
+                  song={track}
+                  i={i}
+                  key={track.id}
+                  artistId={params?.artistId}
+                  className="w-40 h-60"
+                />
+              ))}
           </section>
         </TabsContent>
       </Tabs>

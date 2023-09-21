@@ -5,7 +5,6 @@ const Search = () => {
   return (
     <section className="container pt-10">
       <SearchBar/>
-    
       <Outlet />
     </section>
   );

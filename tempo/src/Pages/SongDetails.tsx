@@ -1,9 +1,7 @@
 import { HeroImage } from "@/components";
-
 import Title from "@/components/Title";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
-
 import { useSong } from "@/hooks/useSong";
 import { useParams } from "react-router-dom";
 
