@@ -1,11 +1,7 @@
-import { FaSearch, FaList } from "react-icons/fa";
-import { FaChartSimple } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 import { AiOutlineCompass, AiOutlineHeart } from "react-icons/ai";
-import { BsDisc } from "react-icons/bs";
-import { PiMicrophoneStageLight } from "react-icons/pi";
 import { BiLibrary } from "react-icons/bi";
 import { CgMenuRight } from "react-icons/cg";
-import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Styles } from "@/Styles";
 import { useAuth } from "@/hooks/use-Auth";
@@ -18,14 +14,20 @@ const navLinks = [
 
 const NavLinks = () => {
   return (
-    <nav className=" flex flex-row justify-around items-center md:flex-col gap-2 md:justify-center md:items-center  w-full md:h-[90vh]">
+    <nav className=" flex flex-row justify-around items-center md:flex-col gap-2 md:justify-center md:items-center w-full md:h-[90vh]">
       {navLinks.map((link) => (
         <NavLink
-          className={` bg-gray-950 p-2 rounded-lg  hover:text-yellow-300 hover:scale-105 ${Styles.transtions} text-secondary `}
+          className={({ isActive }) => {
+            return `  p-2  hover:text-yellow-300 hover:scale-105 ${
+              Styles.transtions
+            } text-secondary ${
+              isActive ? "bg-gray-950 scale-105 rounded-md" : "bg-gray-800 scale-100 rounded-xl"
+            }`;
+          }}
           key={link.id}
           to={link.path}
         >
-          <link.icon size={25} />
+          <link.icon size={28} />
         </NavLink>
       ))}
     </nav>

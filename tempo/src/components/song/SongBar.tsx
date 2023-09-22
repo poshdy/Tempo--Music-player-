@@ -6,25 +6,32 @@ import { Styles } from "@/Styles";
 import Title from "../Title";
 import LikeButton from "../LikeButton";
 import { ArtistSong, Song } from "@/types/types";
+import { cn } from "@/lib/utils";
 
 type ArrayData = Song & ArtistSong;
 type Props = {
   data: ArrayData[];
   artistId?: string;
   title: string;
+  hasBackground: boolean;
 };
 
-const trackBar = ({ data, artistId, title }: Props) => {
+const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
   const { activeSong, isPlaying } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
 
   return (
-    <section className={`container flex flex-col gap-3 bg-black rounded-2xl p-10`}>
+    <section
+      className={cn(
+        "`container flex flex-col gap-3 `",
+        hasBackground && "bg-black rounded-2xl p-10"
+      )}
+    >
       <Title className="md:text-4xl" title={title} />
       {data?.map((track, i: number) => (
         <section
           className={`w-full flex items-center justify-between p-1 group rounded-md  hover:bg-black ${Styles.transtions}`}
-          key={ track.id || track.key}
+          key={track.id || track.key}
         >
           <section className="flex items-center gap-2">
             <span className="block group-hover:hidden w-6">{1 + i}</span>

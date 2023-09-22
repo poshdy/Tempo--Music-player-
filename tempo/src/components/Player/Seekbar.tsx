@@ -1,22 +1,24 @@
+import { useSongModal } from "@/zustand/songModal";
 import React from "react";
-
+import {Progress} from '@/components/ui/progress'
 type Props = {
-  value: number |string;
-  min: string;
+  value: number | undefined;
+  min: any;
   max: number;
   onInput: (event: any) => void
-  setSeekTime:React.Dispatch<React.SetStateAction<number | string>>;
+  setSeekTime:React.Dispatch<React.SetStateAction<number | undefined|null>>;
   appTime: number;
 };
 
 const Seekbar = ({ value, appTime, min, max, setSeekTime,onInput }: Props) => {
+  const {isOpen} = useSongModal()
   
-  const getTime = (time: number|string) => {
+  const getTime = (time: number|any) => {
    return `${Math.floor(+time / 60)}:${`0${Math.floor(+time % 60)}`.slice(-2)}`;
   };
 
   return (
-    <div className="hidden sm:flex flex-row items-center">
+    <div className={`${isOpen ? 'flex items-center' : 'hidden sm:flex flex-row items-center'}`}>
       <button
         type="button"
         onClick={() => setSeekTime(appTime - 5)}
@@ -25,9 +27,7 @@ const Seekbar = ({ value, appTime, min, max, setSeekTime,onInput }: Props) => {
         -
       </button>
       <p className="text-white">{value === 0 ? '0:00' : getTime(value)}</p>
-      <input
-        type="range"
-        step="any"
+      <Progress
         value={value}
         min={min}
         max={max}

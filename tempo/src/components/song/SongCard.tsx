@@ -4,14 +4,15 @@ import { usePlayer } from "@/zustand/music-player";
 import usePlayPause from "@/hooks/use-Play-Pause";
 import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
-import { Song, ArtistSong } from "@/types/types";
+import { Song, ArtistSong, UserSong } from "@/types/types";
 
-type SongType = Song & ArtistSong;
+
+type SongType = Song & ArtistSong & UserSong;
 
 type Props = {
   song: SongType;
   i: number;
-  data: Song[] | ArtistSong[];
+  data: Song[] | ArtistSong[] | UserSong[];
   artistId?: string;
   className: string;
 };
@@ -32,7 +33,9 @@ const SongCard = ({ artistId, song, i, data, className }: Props) => {
           src={
             song?.attributes?.artwork?.url
               .replace("{w}", "220")
-              .replace("{h}", "220") || song?.images?.coverart
+              .replace("{h}", "220") ||
+            song?.images?.coverart ||
+            song?.Image
           }
         />
       </div>
@@ -41,8 +44,11 @@ const SongCard = ({ artistId, song, i, data, className }: Props) => {
         {artistId ? (
           <h2 className="truncate w-full">{song?.attributes?.name}</h2>
         ) : (
-          <Link className=" w-full truncate" to={`/song/${song.key}`}>
-            {song.title}
+          <Link
+            className=" w-full truncate"
+            to={`/song/${song?.key || song?.songId}`}
+          >
+            {song.title || song?.name}
           </Link>
         )}
 
@@ -53,7 +59,7 @@ const SongCard = ({ artistId, song, i, data, className }: Props) => {
         ) : (
           <Link
             className="w-full truncate text-xs font-medium"
-            to={`/artist/${song?.artists[0]?.adamid}`}
+            to={`/artist/${song?.artists && song?.artists?.at(0)?.adamid}`}
           >
             {song?.subtitle}
           </Link>

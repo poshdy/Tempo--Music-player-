@@ -1,23 +1,35 @@
-import { usePlayer } from '@/zustand/music-player';
-import React,{useState,useEffect} from 'react'
-import Controls from './Controls';
-import Player from './Player';
-import Seekbar from './Seekbar';
-import Track from './Track';
-import Volume from './Volume';
+import { usePlayer } from "@/zustand/music-player";
+import React, { useState, useEffect } from "react";
+import Controls from "./Controls";
+import Player from "./Player";
+import Seekbar from "./Seekbar";
+import Track from "./Track";
+import Volume from "./Volume";
+import { AiOutlineArrowUp } from "react-icons/ai";
+import { useSongModal } from "@/zustand/songModal";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
+import { Styles } from "@/Styles";
 
 const MusicPlayer = () => {
-  const { activeSong, currentSongs, currentIndex, isActive, isPlaying ,playPause,nextSong, prevSong} = usePlayer((state) => state);
+  const {
+    activeSong,
+    currentSongs,
+    currentIndex,
+    isActive,
+    isPlaying,
+    playPause,
+    nextSong,
+    prevSong,
+  } = usePlayer((state) => state);
   const [duration, setDuration] = useState<number>(0);
-  const [seekTime, setSeekTime] = useState<number | string>(0);
+  const [seekTime, setSeekTime] = useState<number |  undefined |null >(0);
   const [appTime, setAppTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.3);
   const [repeat, setRepeat] = useState<boolean>(false);
   const [shuffle, setShuffle] = useState<boolean>(false);
-
-
+  const { onOpen, isOpen, onClose } = useSongModal();
   useEffect(() => {
-    if (currentSongs.length) playPause(true);
+    if (currentSongs?.length) playPause(true);
   }, [currentIndex]);
 
   const handlePlayPause = () => {
@@ -51,8 +63,22 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className="sm:px-12 px-8 w-full flex items-center justify-betwee">
-      <Track isPlaying={isPlaying} isActive={isActive} activeSong={activeSong} />
+    <div className={`sm:px-12 px-8 w-full flex items-center justify-between relative ${isOpen && 'flex flex-col h-screen items-center justify-center'}`}>
+      <div
+        onClick={() => (isOpen ? onClose() : onOpen())}
+        className={`flex md:hidden absolute right-5 top-0 bg-yellow-100/20 ${Styles.transtions} rounded-full`}
+      >
+        {isOpen ? (
+          <MdKeyboardArrowDown size={30} />
+        ) : (
+          <MdKeyboardArrowUp size={30} className="text-red-50" />
+        )}
+      </div>
+      <Track
+        isPlaying={isPlaying}
+        isActive={isActive}
+        activeSong={activeSong}
+      />
       <div className="flex-1 flex flex-col items-center justify-center">
         <Controls
           isPlaying={isPlaying}
@@ -70,7 +96,7 @@ const MusicPlayer = () => {
           value={appTime}
           min="0"
           max={duration}
-          onInput={(event) => setSeekTime((event.target.value))}
+          onInput={(event) => setSeekTime(event.target.value)}
           setSeekTime={setSeekTime}
           appTime={appTime}
         />
@@ -86,10 +112,15 @@ const MusicPlayer = () => {
           onLoadedData={(event) => setDuration(event.target.duration)}
         />
       </div>
-      <Volume value={volume} min="0" max="1" onChange={(event) => setVolume(event.target.value)} setVolume={setVolume} />
+      <Volume
+        value={volume}
+        min="0"
+        max="1"
+        onChange={(event) => setVolume(event.target.value)}
+        setVolume={setVolume}
+      />
     </div>
   );
 };
 
-
-export default MusicPlayer
+export default MusicPlayer;

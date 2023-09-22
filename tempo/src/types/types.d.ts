@@ -37,19 +37,13 @@ type HUB = {
   actions: Actions;
 };
 
-// type AppleMusicPlayAction ={
-//   name: string;
-//   type: string;
-//   id: string;
-// }
-
-// type UriAction ={
-//   name: string;
-//   type: string;
-//   uri: string;
-// }
-
-// interface Actions extends Array<AppleMusicPlayAction | UriAction> {}
+type UserSong = {
+  userId: string;
+  songId: string;
+  Image: string;
+  uri: string;
+  name: string;
+};
 
 export type ArtistSong = {
   id: string;

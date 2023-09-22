@@ -1,18 +1,17 @@
 import { Song } from "@/types/types";
-import React, { useRef ,useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 type Props = {
   isPlaying: boolean;
   activeSong: any;
   volume: number;
-  seekTime: number | string;
+  seekTime: number | undefined | null;
   repeat: boolean;
   currentIndex: number;
   onEnded: () => void;
-  onTimeUpdate:(event: any) => void,
-  onLoadedData: (event: any) => void
+  onTimeUpdate: (event: any) => void;
+  onLoadedData: (event: any) => void;
 };
-
 
 const Player = ({
   activeSong,
@@ -21,31 +20,40 @@ const Player = ({
   seekTime,
   repeat,
   onEnded,
-  onLoadedData,onTimeUpdate
+  onLoadedData,
+  onTimeUpdate,
 }: Props) => {
-  const audioRef = useRef <HTMLAudioElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   if (audioRef.current) {
     if (isPlaying) {
-      audioRef.current?.play()
+      audioRef.current?.play();
     } else {
       audioRef.current?.pause();
     }
   }
-  // useEffect(() => {
-  //   audioRef.current?.volume = volume
-    
-  // }, [volume])
-  // useEffect(() => {
-  //  audioRef.current?.currentTime = seekTime
-  // }, [seekTime]);
+  //   useEffect(() => {
+  // audioRef.current?.volume = volume
 
-  
+  //   }, [volume])
+  //   useEffect(() => {
+  //    audioRef.current?.currentTime = seekTime
+  //   }, [seekTime]);
 
-  return <audio ref={audioRef} src={activeSong.hub?.actions[1]?.uri || activeSong?.attributes?.previews[0]?.url || activeSong?.uri}  loop={repeat}
-  onEnded={onEnded}
-  onTimeUpdate={onTimeUpdate}
-  onLoadedData={onLoadedData}/>;
+  return (
+    <audio
+      ref={audioRef}
+      src={
+        activeSong.hub?.actions[1]?.uri ||
+        activeSong?.attributes?.previews[0]?.url ||
+        activeSong?.uri
+      }
+      loop={repeat}
+      onEnded={onEnded}
+      onTimeUpdate={onTimeUpdate}
+      onLoadedData={onLoadedData}
+    />
+  );
 };
 
 export default Player;

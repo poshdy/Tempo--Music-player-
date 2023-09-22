@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-Auth";
-import { useSupabase } from "@/hooks/use-SupaBase";
+
 import React, { useState } from "react";
 import UploadImg from "@/components/UploadImg";
 import { useToast } from "@/components/ui/use-toast";
+import { useSupabase } from "@/hooks/use-SupaBase";
 
 type Props = {};
 
@@ -15,7 +16,7 @@ const Dashboard = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { user, signOut } = useAuth();
-  const supabase = useSupabase()
+  const Supabase =useSupabase()
   const {toast}  = useToast()
   
 
@@ -23,7 +24,7 @@ const Dashboard = (props: Props) => {
     e.preventDefault();
     try {
         setLoading(true)
-        const {error} = await supabase.from('users').update({user_name:username}).eq('id',user?.id)
+        const {error} = await Supabase.from('users').update({user_name:username}).eq('id',user?.id)
         toast({title:'updated'})
     } catch (error) {
         console.error(error)

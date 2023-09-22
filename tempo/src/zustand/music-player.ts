@@ -1,10 +1,12 @@
-import { ArtistSong, Song } from "@/types/types";
+import { ArtistSong, Song, UserSong } from "@/types/types";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
+// type CurrentSongs = Song & ArtistSong | UserSong 
+
 interface MusicPlayerState {
   currentIndex: number;
-  currentSongs: any[];
+  currentSongs:any[];
   isPlaying: boolean;
   isActive: boolean;
   activeSong: any | undefined;

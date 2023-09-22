@@ -13,64 +13,69 @@ import { useAuth } from "@/hooks/use-Auth";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import { Styles } from "@/Styles";
+import FavoriteArtists from "@/components/FavoriteArtists";
+import { Suspense } from "react";
+import FavArtistsSkeleton from "@/components/skeletons/FavArtistsSkeleton";
+import TopCharts from "@/components/TopCharts";
+import SongbarSkeleton from "@/components/skeletons/SongbarSkeleton";
 const Home = () => {
-  const { data, error, isError, isLoading } = useFetchSongs();
-  if (isError) {
-    console.error(error);
-  }
-  if (isLoading) {
-    return (
-      <section className="space-y-10 w-full">
-        <Skeleton className="h-[60vh] w-full rounded-b-lg" />
-        {Array.from({ length: 12 }, (_, i) => i + 1).map((id) => (
-          <section key={id}>
-            <Skeleton className="container h-10 py-2" />
-          </section>
-        ))}
-      </section>
-    );
-  }
+  const { user } = useAuth();
   return (
-    <section className="space-y-10 w-full">
-      <HeroImage isHome={true} song={data[1]} data={data} />
-      <SongBar title="Top Charts" data={data?.slice(0, 10)} />
-
-      <Wrapper>
-        <Title className="md:text-4xl" title="Top Artists" />
-        <TopArtists data={data} />
-      </Wrapper>
-
-      <Wrapper>
-        <Title className="md:text-4xl" title="Trending Songs" />
-        <Swiper
-          modules={[EffectCoverflow, Pagination, Navigation]}
-          effect="coverflow"
-          grabCursor={true}
-          centeredSlides={true}
-          loop={true}
-          slidesPerView={4}
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 2.5,
-            slideShadows: false,
-          }}
-        >
-          {data?.map((song: Song & ArtistSong, i: number) => (
-            <SwiperSlide key={song.key}>
-              <SongCard
-                className={`md:w-52 md:h-60 ${Styles.transtions}`}
-                data={data}
-                i={i}
-                song={song}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </Wrapper>
-    </section>
+    <Wrapper>
+      <Title
+        className="text-2xl md:text-3xl"
+        title={`Hello ${user?.user_name}!`}
+      />
+      <Suspense fallback={<FavArtistsSkeleton />}>
+        <Title className="text-xl md:text-2xl" title="Liked Artists" />
+        <FavoriteArtists />
+      </Suspense>
+      <Suspense fallback={<SongbarSkeleton />}>
+        <TopCharts />
+      </Suspense>
+    </Wrapper>
   );
 };
 
 export default Home;
+{
+  /* <HeroImage isHome={true} song={data[1]} data={data} /> */
+}
+{
+  /* <SongBar title="Top Charts" data={data?.slice(0, 10)} />
+
+<Wrapper>
+  <Title className="md:text-4xl" title="Top Artists" />
+  <TopArtists data={data} />
+</Wrapper>
+
+<Wrapper>
+  <Title className="md:text-4xl" title="Trending Songs" />
+  <Swiper
+    modules={[EffectCoverflow, Pagination, Navigation]}
+    effect="coverflow"
+    grabCursor={true}
+    centeredSlides={true}
+    loop={true}
+    slidesPerView={4}
+    coverflowEffect={{
+      rotate: 0,
+      stretch: 0,
+      depth: 100,
+      modifier: 2.5,
+      slideShadows: false,
+    }}
+  >
+    {data?.map((song: Song & ArtistSong, i: number) => (
+      <SwiperSlide key={song.key}>
+        <SongCard
+          className={`md:w-52 md:h-60 ${Styles.transtions}`}
+          data={data}
+          i={i}
+          song={song}
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</Wrapper> */
+}

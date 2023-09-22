@@ -1,6 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Song } from "@/types/types";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -11,7 +9,7 @@ type Props = {
 const ArtistCard = ({ artist, className }: Props) => {
   const navigate = useNavigate();
   return (
-    <div
+    <section
       className="flex flex-col items-center gap-1 w-full hover:bg-[#0b0b0b]/50  text-[#d2d2d2] p-3 rounded-lg duration-300 ease-in-out  cursor-pointer "
       onClick={() =>
         navigate(
@@ -35,7 +33,7 @@ const ArtistCard = ({ artist, className }: Props) => {
       <p className="text-white w-20 truncate font-semibold text-center text-xs">
         {artist?.subtitle || artist?.name}
       </p>
-    </div>
+    </section>
   );
 };
 

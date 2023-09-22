@@ -3,10 +3,10 @@ import { Button } from "./ui/button";
 import { GrAdd } from "react-icons/gr";
 import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
-import { useSupabase } from "@/hooks/use-SupaBase";
 import { useToast } from "./ui/use-toast";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Styles } from "@/Styles";
+import { useSupabase } from "@/hooks/use-SupaBase";
 
 type Props = {
   artistData: any;
@@ -17,14 +17,14 @@ function FollowArtist({ artistData }: Props) {
   const [Error, setError] = useState()
   const { onOpen } = useModal();
   const { user } = useAuth();
-  const supabase = useSupabase();
+  const Supabase = useSupabase();
   const { toast } = useToast();
   const handleClick = async () => {
     if (!user) {
       onOpen();
     }
     try {
-      const { error } = await supabase.from("favorite-artists").insert({
+      const { error } = await Supabase.from("favorite-artists").insert({
         userId: user?.id,
         artistId: artistData.id,
         Image: artistData?.attributes?.artwork?.url,

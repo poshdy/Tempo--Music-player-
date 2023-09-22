@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Input } from './ui/input'
 import {useAuth} from '@/hooks/use-Auth';
-import { useSupabase } from '@/hooks/use-SupaBase';
 // import { v4 as uuidv4 } from 'uuid';
 
 type Props = {}

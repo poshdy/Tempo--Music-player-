@@ -11,8 +11,11 @@ const config = {
 const fetchSongs = () => {
   return axios.get("https://shazam.p.rapidapi.com/charts/track", config);
 };
-const fetchSongsbyGenre = (genreId:string |undefined) => {
-  return axios.get(`https://shazam.p.rapidapi.com/charts/track?locale=en-US&listId=${genreId}`, config);
+const fetchSongsbyGenre = (genreId: string | undefined) => {
+  return axios.get(
+    `https://shazam.p.rapidapi.com/charts/track?locale=en-US&listId=${genreId}`,
+    config
+  );
 };
 
 export const useFetchSongs = () => {
@@ -22,18 +25,19 @@ export const useFetchSongs = () => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     select(data) {
-      return data?.data?.tracks
+      return data?.data?.tracks?.slice(0, 8);
     },
+    suspense: true,
   });
 };
-export const useFetchListSongs = (genreId:string |undefined) => {
+export const useFetchListSongs = (genreId: string | undefined) => {
   return useQuery({
-    queryKey: ["listsongs",genreId],
-    queryFn:()=> fetchSongsbyGenre(genreId),
+    queryKey: ["listsongs", genreId],
+    queryFn: () => fetchSongsbyGenre(genreId),
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     select(data) {
-      return data?.data?.tracks
+      return data?.data?.tracks;
     },
   });
 };

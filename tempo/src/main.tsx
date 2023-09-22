@@ -6,26 +6,36 @@ import "./index.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
-import SupaBaseProvider from "./hooks/use-SupaBase.tsx";
 import SupabaseAuthProvider from "./hooks/use-Auth.tsx";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
+import SupabaseProvider from "./hooks/use-SupaBase.tsx";
+import { supabase } from "./lib/supabaseClient.ts";
 
-const queryClient = new QueryClient();
+const { data } = await supabase.auth.getSession();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      // suspense: true,
+    },
+  },
+});
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <SupaBaseProvider>
-          <SupabaseAuthProvider>
+    <Router>
+      <QueryClientProvider client={queryClient}>
+        <SupabaseProvider>
+          <SupabaseAuthProvider session={data.session}>
             <App />
             <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
           </SupabaseAuthProvider>
           <Toaster />
-        </SupaBaseProvider>
-      </Router>
-    </QueryClientProvider>
+        </SupabaseProvider>
+      </QueryClientProvider>
+    </Router>
   </React.StrictMode>
 );

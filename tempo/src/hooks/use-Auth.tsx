@@ -34,27 +34,16 @@ const Context = createContext<ContextI>({
 
 export default function SupabaseAuthProvider({
   children,
+  session,
 }: {
   children: React.ReactNode;
+  session: Session | null;
 }) {
-  const [session, setSession] = useState<Session | null>(null);
-
-  const supabase = useSupabase();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  const Supabase = useSupabase();
 
   const getUser = async () => {
-    const { data: user, error } = await supabase
-      .from("users")
+    const { data: user, error } = await Supabase.from("users")
       .select("*")
       .eq("id", session?.user.id)
       .single();
@@ -77,7 +66,7 @@ export default function SupabaseAuthProvider({
   });
 
   const SignUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { error } = await Supabase.auth.signUp({
       email,
       password,
     });
@@ -89,7 +78,7 @@ export default function SupabaseAuthProvider({
   };
 
   const SignUpWithMagiclink = async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    const { error } = await Supabase.auth.signInWithOtp({ email });
 
     if (error) {
       return error.message;
@@ -99,15 +88,28 @@ export default function SupabaseAuthProvider({
   };
 
   const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
+    await Supabase.auth.signInWithOAuth({
       provider: "google",
     });
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    await Supabase.auth.signOut();
     navigate("/");
   };
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = Supabase.auth.onAuthStateChange((event, Session) => {
+      if (Session?.access_token !== session?.access_token) {
+        navigate(0);
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate, Supabase, session?.access_token]);
 
   const value = {
     user,

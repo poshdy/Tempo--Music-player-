@@ -14,9 +14,9 @@ import {
 import { Button } from "./ui/button";
 import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
-import { useSupabase } from "@/hooks/use-SupaBase";
 import { useToast } from "./ui/use-toast";
 import LikeButton from "./LikeButton";
+import { useSupabase } from "@/hooks/use-SupaBase";
 
 type Props = {
   song: Song | any;
@@ -26,7 +26,7 @@ type Props = {
 };
 
 const ActionBtns = ({ song, data, type, isHome }: Props) => {
-  const supabase = useSupabase();
+  const Supabase = useSupabase();
   const { toast } = useToast();
   // const { handlePause, handlePlay } = usePlayPause();
   // const { isPlaying, activeSong } = usePlayer();
