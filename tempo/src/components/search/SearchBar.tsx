@@ -6,15 +6,13 @@ type Props = {};
 
 const SearchBar = (props: Props) => {
   const [Query, setQuery] = useState<string | null>("");
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { debouncedValue } = useDebounce(Query);
   const navigate = useNavigate();
   useEffect(() => {
     inputRef.current?.focus();
 
-    return () => {
-      console.log("Clean up");
-    };
+    return () => {};
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

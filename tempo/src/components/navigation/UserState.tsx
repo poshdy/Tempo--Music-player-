@@ -24,11 +24,14 @@ const UserState = (props: Props) => {
     <>
       {user ? (
         <DropdownMenu>
-          <DropdownMenuTrigger className=" w-8 aspect-square bg-red-700 rounded-full"></DropdownMenuTrigger>
+          <DropdownMenuTrigger className=""><img className="w-8 aspect-square object-cover rounded-full" src={user?.avatar_url} alt="profile pic" /></DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>
+              {" "}
+              <Link to={"/dashboard"}>Profile</Link>{" "}
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={signOut}>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

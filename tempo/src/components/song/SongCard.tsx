@@ -35,7 +35,8 @@ const SongCard = ({ artistId, song, i, data, className }: Props) => {
               .replace("{w}", "220")
               .replace("{h}", "220") ||
             song?.images?.coverart ||
-            song?.Image
+            song?.Image?.replace("{w}", "220")
+            .replace("{h}", "220")
           }
         />
       </div>

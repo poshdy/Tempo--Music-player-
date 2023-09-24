@@ -19,7 +19,12 @@ const AlbumDetails = () => {
     <section>
       <HeaderImage ID="album" artistData={data?.data[0]} />
       <section className="container space-y-4 p-5">
-        <SongBar title={"Album list"} artistId={param?.albumId} data={Data} />
+        <SongBar
+          hasBackground
+          title={"Album list"}
+          artistId={param?.albumId}
+          data={Data}
+        />
       </section>
     </section>
   );

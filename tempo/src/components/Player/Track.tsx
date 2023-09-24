@@ -12,8 +12,10 @@ const Track = ({ isActive, isPlaying, activeSong }: Props) => {
   const { isOpen } = useSongModal();
   return (
     <div
-      className={`md:flex-1 flex items-center justify-start ${
-        isOpen && "flex flex-col h-[50%]  justify-center items-center gap-2"
+      className={`${
+        isOpen
+          ? "flex flex-col  justify-center items-center gap-2"
+          : "md:flex-1 flex items-center justify-start "
       }`}
     >
       <img

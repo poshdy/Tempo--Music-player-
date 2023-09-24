@@ -43,6 +43,8 @@ type UserSong = {
   Image: string;
   uri: string;
   name: string;
+  artist_Id: string;
+  liked: boolean;
 };
 
 export type ArtistSong = {
@@ -52,8 +54,9 @@ export type ArtistSong = {
     albumName: string;
     artwork: Artwork;
     name: string;
+    genreNames: string[];
+    previews: Preview[];
   };
-  preview: Preview[];
 };
 
 type Artwork = {
@@ -73,6 +76,19 @@ type Preview = {
   artistName: string;
   contentRating: string;
 };
-// type Section = {
-//   type:string
-// }
+type ArtistAlbums = {
+  id: string;
+  attributes: {
+    artistName: string;
+    name: string;
+    artwork: Artwork;
+  };
+};
+
+type UserAlbums = {
+  albumId: string;
+  name: string;
+  userId: string;
+  Image: string;
+  liked: boolean;
+};

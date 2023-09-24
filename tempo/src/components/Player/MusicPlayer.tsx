@@ -1,5 +1,5 @@
 import { usePlayer } from "@/zustand/music-player";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,Suspense } from "react";
 import Controls from "./Controls";
 import Player from "./Player";
 import Seekbar from "./Seekbar";
@@ -9,6 +9,8 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 import { useSongModal } from "@/zustand/songModal";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Styles } from "@/Styles";
+import SongLyrics from "../SongLyrics";
+import LyricsSkeleton from "../skeletons/LyricsSkeleton";
 
 const MusicPlayer = () => {
   const {
@@ -22,7 +24,7 @@ const MusicPlayer = () => {
     prevSong,
   } = usePlayer((state) => state);
   const [duration, setDuration] = useState<number>(0);
-  const [seekTime, setSeekTime] = useState<number |  undefined |null >(0);
+  const [seekTime, setSeekTime] = useState<number | undefined | null>(0);
   const [appTime, setAppTime] = useState<number>(0);
   const [volume, setVolume] = useState<number>(0.3);
   const [repeat, setRepeat] = useState<boolean>(false);
@@ -63,7 +65,13 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className={`sm:px-12 px-8 w-full flex items-center justify-between relative ${isOpen && 'flex flex-col h-screen items-center justify-center'}`}>
+    <div
+      className={` w-full ${
+        isOpen
+          ? "flex flex-col h-screen items-center justify-start py-2 space-y-5 overflow-scroll"
+          : "sm:px-12 px-8  flex items-center justify-between relative"
+      }`}
+    >
       <div
         onClick={() => (isOpen ? onClose() : onOpen())}
         className={`flex md:hidden absolute right-5 top-0 bg-yellow-100/20 ${Styles.transtions} rounded-full`}
@@ -79,7 +87,13 @@ const MusicPlayer = () => {
         isActive={isActive}
         activeSong={activeSong}
       />
-      <div className="flex-1 flex flex-col items-center justify-center">
+      <div
+        className={`${
+          isOpen
+            ? "flex flex-col items-center justify-start"
+            : "flex-1 flex flex-col items-center justify-center"
+        }`}
+      >
         <Controls
           isPlaying={isPlaying}
           isActive={isActive}
@@ -119,6 +133,13 @@ const MusicPlayer = () => {
         onChange={(event) => setVolume(event.target.value)}
         setVolume={setVolume}
       />
+      {isOpen && (
+        <Suspense fallback={<LyricsSkeleton/>}>
+          <SongLyrics
+            songId={activeSong.id || activeSong.key || activeSong.songId}
+          />
+        </Suspense>
+      )}
     </div>
   );
 };

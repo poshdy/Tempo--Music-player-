@@ -1,67 +1,51 @@
-import { Wrapper } from "@/components";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import {  Wrapper } from "@/components";
 import { useAuth } from "@/hooks/use-Auth";
+import { useState } from "react";
+import Header from "@/components/Header";
+import ProfileEdit from "@/components/ProfileEdit";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import FavoriteArtists from "@/components/FavoriteArtists";
+import FavoriteAlbums from "@/components/FavoriteAlbums";
+import FavoriteSongs from "@/components/FavoriteSongs";
 
-import React, { useState } from "react";
-import UploadImg from "@/components/UploadImg";
-import { useToast } from "@/components/ui/use-toast";
-import { useSupabase } from "@/hooks/use-SupaBase";
 
 type Props = {};
 
 const Dashboard = (props: Props) => {
-  const [username, setUsername] = useState<string | null>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const { user, signOut } = useAuth();
-  const Supabase =useSupabase()
-  const {toast}  = useToast()
-  
-
-  const handleSubmit = async (e: React.FocusEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-        setLoading(true)
-        const {error} = await Supabase.from('users').update({user_name:username}).eq('id',user?.id)
-        toast({title:'updated'})
-    } catch (error) {
-        console.error(error)
-    }finally{
-        setLoading(false)
-        setUsername('')
-    }
-  };
-
+  const [modal, setModal] = useState(false);
+  const { user } = useAuth();
 
   return (
-    <Wrapper className="py-40">
-      <UploadImg/>
-      <h1>{user?.user_name && `Hello ${user.user_name}`}</h1>
-      <form action="" onSubmit={handleSubmit}>
-        <div>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="text" value={user?.email} disabled />
-        </div>
-        <div>
-          <Label htmlFor="username">Name</Label>
-          <Input
-          className="text-black"
-            id="username"
-            type="text"
-            required
-            value={username || ""}
-            onChange={(e) => setUsername(e.target.value)}
+    <Wrapper className="">
+      <Header modal={modal} setModal={setModal} />
+      <section className="w-full  flex flex-col items-center  gap-6">
+        <div className="flex flex-col items-center justify-center gap-1">
+          <img
+            src={user?.avatar_url}
+            className="w-36 aspect-square rounded-full object-cover"
+            alt="profile-pic"
           />
+          <h2 className="font-bold">{user?.user_name}</h2>
+          <p className="font-normal text-gray-400">{user?.email}</p>
         </div>
-        <div>
-          <Button type="submit" disabled={loading}>
-            {loading ? "Loading ..." : "Update"}
-          </Button>
-        </div>
-      </form>
-      <Button onClick={signOut}>Logout</Button>
+      </section>
+      <ProfileEdit setModal={setModal} modal={modal} />
+      <Tabs defaultValue="fav-songs" className={`w-full space-y-5`}>
+        <TabsList className={`w-full flex  md:p-4 md:justify-start `}>
+          <TabsTrigger value="fav-songs">Liked Songs</TabsTrigger>
+          <TabsTrigger value="fav-albums">Liked Albums</TabsTrigger>
+          <TabsTrigger value="fav-artists">Followed Artists</TabsTrigger>
+        </TabsList>
+        <TabsContent value="fav-songs">
+          <FavoriteSongs />
+        </TabsContent>
+        <TabsContent value="fav-artists">
+          <FavoriteArtists />
+        </TabsContent>
+        <TabsContent value="fav-albums">
+          <FavoriteAlbums />
+        </TabsContent>
+      </Tabs>
     </Wrapper>
   );
 };

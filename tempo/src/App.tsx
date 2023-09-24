@@ -1,10 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import {
-  Home,
-  NotFound,
-  ListDetails,
-  AlbumDetails,
-} from "./Pages";
+import { Home, NotFound, ListDetails, AlbumDetails } from "./Pages";
 import { usePlayer } from "./zustand/music-player";
 import {
   NavBar,
@@ -17,16 +12,15 @@ import {
 
 import { Suspense, lazy } from "react";
 import { useSongModal } from "./zustand/songModal";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 const Search = lazy(() => import("@/Pages/Search"));
 const Dashboard = lazy(() => import("@/Pages/Dashboard"));
-const Profile = lazy(() => import("@/Pages/Profile"));
 const Artist = lazy(() => import("@/Pages/Artist"));
-const Likes = lazy(() => import("./Pages/Likes"));
 
 function App() {
   const { activeSong } = usePlayer();
-const {onOpen,isOpen} = useSongModal()
+  const { isOpen } = useSongModal();
 
   let Content = activeSong?.attributes?.name
     ? activeSong?.attributes?.name
@@ -62,28 +56,14 @@ const {onOpen,isOpen} = useSongModal()
             <Route path=":searchterm" element={<SearchResults />} />
           </Route>
           <Route path="/lists/:listId" element={<ListDetails />} />
+
           <Route
             path="/dashboard"
             element={
               <Suspense fallback={<h1>Loaddinff</h1>}>
-                <Dashboard />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Suspense fallback={<h1>Loadinggg</h1>}>
-                <Profile />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/likes"
-            element={
-              <Suspense fallback={<h1>Loadinggg</h1>}>
-                {" "}
-                <Likes />
+                <ProtectedRoutes>
+                  <Dashboard />
+                </ProtectedRoutes>
               </Suspense>
             }
           />
@@ -91,7 +71,11 @@ const {onOpen,isOpen} = useSongModal()
       </section>
 
       {Content && (
-        <section className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white bg-opacity-20 drop-shadow-lg  backdrop-blur-lg z-40 md:z-50 ${isOpen && 'h-screen'}`}>
+        <section
+          className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white bg-opacity-20 drop-shadow-lg  backdrop-blur-lg z-40 md:z-50 ${
+            isOpen && "h-screen"
+          }`}
+        >
           <MusicPlayer />
         </section>
       )}

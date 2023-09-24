@@ -23,13 +23,13 @@ const SearchResults = () => {
     );
   }
   return (
-    <section className="space-y-10 flex flex-col items-start justify-center md:items-center md:justify-center">
+    <section className="flex flex-col items-center justify-center gap-3 md:items-start md:justify-start">
       <h3>Search Results for: {param.searchterm}</h3>
       <img
         className="w-40 aspect-square object-cover rounded-full"
         src={data?.artists?.hits[0].artist.avatar}
       />
-      <div className="flex flex-wrap gap-3 md:items-center md:justify-center">
+      <div className="flex flex-wrap items-center justify-center md:justify-start md:items-start gap-2">
         {tracks?.map((track: Song & ArtistSong, i: number) => (
           <SongCard
             className={`md:w-52 md:h-60 ${Styles.transtions}`}

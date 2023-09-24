@@ -1,4 +1,4 @@
-import { Session } from "@supabase/supabase-js";
+import { Session, User } from "@supabase/supabase-js";
 
 import React, { useEffect, useContext, createContext, useState } from "react";
 
@@ -8,7 +8,7 @@ import { useSupabase } from "./use-SupaBase";
 
 type USER = {
   id: string;
-  avatar_url: string | null;
+  avatar_url: string |  undefined;
   email: string | null;
   user_name: string | null;
 };
@@ -41,6 +41,15 @@ export default function SupabaseAuthProvider({
 }) {
   const navigate = useNavigate();
   const Supabase = useSupabase();
+const [data , setData] = useState<any>()
+  useEffect(() => {
+    const getUserInfo = async()=>{
+      const { data } = await Supabase.auth.getUser();
+      setData(data)
+
+    }
+
+  }, []);
 
   const getUser = async () => {
     const { data: user, error } = await Supabase.from("users")
@@ -48,12 +57,23 @@ export default function SupabaseAuthProvider({
       .eq("id", session?.user.id)
       .single();
 
+      if(!user?.avatar_url){
+        getUserImg();
+      }
+
     if (error) {
       return null;
     } else {
       return user;
     }
   };
+
+  const getUserImg = async () => {
+    const { error } = await Supabase.from("users").update({
+      avatar_url: data?.user?.user_metadata,
+    }).eq('id',data?.user?.id);
+  };
+
 
   const {
     data: user,

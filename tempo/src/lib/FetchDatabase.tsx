@@ -5,5 +5,5 @@ export async function FetchDatabase(
   table: string,
   userId: string | undefined
 ) {
-  return await client.from(table).select().eq('userId', userId);
+  return await client.from(table).select('*').eq('userId', userId);
 }

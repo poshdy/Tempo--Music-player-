@@ -20,10 +20,9 @@ export const useSong = (key: string | undefined) => {
   return useQuery({
     queryKey: ["song", key],
     queryFn: () => FetchSong(key),
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
     select(data) {
-      return data.data;
+      return data?.data?.sections;
     },
+    suspense:true
   });
 };

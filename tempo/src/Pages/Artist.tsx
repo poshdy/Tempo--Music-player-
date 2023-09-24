@@ -4,7 +4,7 @@ import ArtistAlbum from "@/components/artist/ArtistAlbum";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useArtist, useArtistSummary } from "@/hooks/useArtist";
-import { ArtistSong, Song } from "@/types/types";
+import { ArtistSong, Song, UserSong } from "@/types/types";
 
 import { useParams } from "react-router-dom";
 
@@ -44,6 +44,7 @@ const Artist = () => {
         </TabsList>
         <TabsContent value="popular">
           <SongBar
+            hasBackground
             title="top hits"
             data={data?.data?.slice(0, 8)}
             artistId={params?.artistId}
@@ -56,7 +57,7 @@ const Artist = () => {
           <section className="flex flex-wrap gap-3 items-center  ">
             {data?.data
               ?.slice(0, 8)
-              .map((track: Song & ArtistSong, i: number) => (
+              .map((track: Song & ArtistSong & UserSong, i: number) => (
                 <SongCard
                   data={data?.data}
                   song={track}

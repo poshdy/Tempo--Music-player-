@@ -24,7 +24,7 @@ export const useSearch = (query: string | undefined) => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     select(data) {
-      return data.data;
+      return data?.data;
     },
   });
 };

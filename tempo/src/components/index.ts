@@ -2,7 +2,6 @@ import SongBar from "./song/SongBar";
 import SideBar from "./navigation/SideBar";
 import SongCard from "./song/SongCard";
 import TopArtists from "./artist/TopArtists";
-import HeroImage from "./song/HeroImage";
 import SearchResults from "./search/SearchResults";
 import PlayPause from "./PlayPause";
 import NavigationBTNS from "./navigation/NavigationBTNS";
@@ -12,7 +11,6 @@ import NavBar from "./navigation/NavBar";
 import HeaderImage from "./HeaderImage";
 import AuthModal from "./AuthModal";
 import LikeButton from "./LikeButton";
-import ActionBtns from "./ActionBtns";
 import FollowArtist from "./FollowArtist";
 import AddAlbumToLikes from "./AddAlbumToLikes";
 import Title from "./Title";
@@ -28,10 +26,8 @@ export {
   SongBar,
   SongCard,
   TopArtists,
-  HeroImage,
   SearchResults,
   PlayPause,
-  ActionBtns,
   AddAlbumToLikes,
   AuthModal,
   FollowArtist,
@@ -40,5 +36,5 @@ export {
   Title,
   MusicPlayer,
   Wrapper,
-  SearchList
+  SearchList,
 };
