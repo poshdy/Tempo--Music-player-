@@ -15,15 +15,14 @@ import SupabaseProvider from "./hooks/use-SupaBase.tsx";
 import { supabase } from "./lib/supabaseClient.ts";
 import { Session } from "@supabase/supabase-js";
 
-const [data,setData] = useState<any>()
-useEffect(()=>{
-  const getSession = async()=>{
-    const {data} = await supabase.auth.getSession()
-    setData(data)
-  }
-  getSession()
-
-},[data.access_token])
+let session: Session;
+useEffect(() => {
+  const getSession = async () => {
+    const { data } = await supabase.auth.getSession();
+    session = data.session;
+  };
+  getSession();
+}, [session.access_token]);
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -38,7 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <QueryClientProvider client={queryClient}>
         <SupabaseProvider>
-          <SupabaseAuthProvider session={data}>
+          <SupabaseAuthProvider session={session}>
             <App />
             <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
           </SupabaseAuthProvider>
