@@ -27,7 +27,7 @@ export const useFetchSongs = () => {
     select(data) {
       return data?.data?.tracks?.slice(0, 8);
     },
-    suspense: true,
+  
   });
 };
 export const useFetchListSongs = (genreId: string | undefined) => {

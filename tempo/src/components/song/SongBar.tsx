@@ -23,7 +23,7 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
   return (
     <section
       className={cn(
-        "`container flex flex-col gap-3 `",
+        "flex flex-col gap-3",
         hasBackground && "bg-black rounded-2xl p-10"
       )}
     >
@@ -55,24 +55,17 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
               }
               className="w-12 aspect-square object-cover rounded-md"
             />
-            <div className="flex flex-col items-start gap-2 text-sm">
-              {artistId ? (
-                <h2>{track?.attributes?.name}</h2>
-              ) : (
-                <Link
-                  className="w-32 truncate font-bold "
-                  to={`/song/${track?.key || track?.songId}`}
-                >
-                  {track?.title || track?.name}
-                </Link>
-              )}
+            <div className="flex flex-col items-start gap-1 text-xs">
+              <h2 className="font-semibold text-sm">{track?.attributes?.name || track?.title || track?.name}</h2>
               {artistId ? (
                 <h2>{track?.attributes?.albumName}</h2>
               ) : (
                 <Link
                   className="w-32 truncate"
                   to={`/artist/${
-                    track?.artists ? track?.artists[0]?.adamid : track?.artistId
+                    track?.artists
+                      ? track?.artists[0]?.adamid
+                      : track?.artist_Id
                   }`}
                 >
                   {track?.subtitle}
@@ -80,7 +73,7 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
               )}
             </div>
           </section>
-          <LikeButton artistId={artistId} song={track} />
+          <LikeButton artistId={artistId} song={track} SongId={track.id || track.key} />
         </section>
       ))}
     </section>

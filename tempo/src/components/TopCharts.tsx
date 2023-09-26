@@ -8,7 +8,7 @@ const TopCharts = (props: Props) => {
   const { data } = useFetchSongs();
   return (
     <section>
-      <SongBar hasBackground={false} data={data} title="Top charts" />
+      <SongBar hasBackground={false} data={data} title="Trending Songs" />
     </section>
   );
 };

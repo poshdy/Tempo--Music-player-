@@ -1,21 +1,33 @@
 import { useAuth } from "@/hooks/use-Auth";
 
-import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
+import React, { useEffect } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useToast } from "./ui/use-toast";
 import { useModal } from "@/zustand/Modal";
-import {useSupabase} from '@/hooks/use-SupaBase'
+import { useSupabase } from "@/hooks/use-SupaBase";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   artistId?: string;
   song: any;
+  SongId: string;
 };
 
-const LikeButton = ({ artistId, song }: Props) => {
+const LikeButton = ({ artistId, song, SongId }: Props) => {
   const { user } = useAuth();
   const Supabase = useSupabase();
   const { onOpen } = useModal();
   const { toast } = useToast();
+
+  // const { data } = useQuery({
+  //   queryKey: ["isLiked", SongId],
+  //   queryFn: async () =>
+  //     await Supabase.from("favorite-songs")
+  //       .select("*")
+  //       .eq("userId", user?.id)
+  //       .eq("songId", SongId),
+  // });
+
   const handleClick = async () => {
     try {
       if (!user) {
@@ -43,7 +55,15 @@ const LikeButton = ({ artistId, song }: Props) => {
       console.error(error);
     }
   };
-  return <AiOutlineHeart onClick={handleClick} size={25} />;
+  return (
+    // <>
+    //   {data?.data?.length === 0 ? (
+    <AiOutlineHeart size={25} onClick={handleClick} />
+    //   ) : (
+    //     <AiFillHeart size={25} className={`text-orange-400`} />
+    //   )}
+    // </>
+  );
 };
 
 export default LikeButton;

@@ -1,10 +1,9 @@
 import useDebounce from "@/hooks/use-debounce";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Input } from "../ui/input";
 
-type Props = {};
-
-const SearchBar = (props: Props) => {
+const SearchBar = () => {
   const [Query, setQuery] = useState<string | null>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { debouncedValue } = useDebounce(Query);
@@ -22,12 +21,12 @@ const SearchBar = (props: Props) => {
   };
   return (
     <form onSubmit={handleSubmit} className="">
-      <input
+      <Input
         ref={inputRef}
         onChange={(e) => setQuery(e.target.value)}
         type="text"
-        className="px-4 text-black focus:border-black focus:outline-none b py-2 border-2 border-black my-1 rounded-full"
-        placeholder="Search"
+        className="text-[#1c1c1c] focus:border-[#1c1c1c] focus:outline-[#1c1c1c]"
+        placeholder="What Do you want listen to?"
       />
     </form>
   );

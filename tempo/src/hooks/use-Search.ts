@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
 
 const config = {
   method: "GET",
@@ -10,7 +9,6 @@ const config = {
   },
 };
 
-// const [searchParam,setSearchParam] = useSearchParams()
 const FetchSong = (query: string | undefined) => {
   return axios.get(
     `https://shazam.p.rapidapi.com/search?term=${query}`,

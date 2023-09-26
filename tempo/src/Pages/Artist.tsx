@@ -45,7 +45,7 @@ const Artist = () => {
         <TabsContent value="popular">
           <SongBar
             hasBackground
-            title="top hits"
+            title="Top Hits"
             data={data?.data?.slice(0, 8)}
             artistId={params?.artistId}
           />
@@ -54,7 +54,7 @@ const Artist = () => {
           <ArtistAlbum artistAlbums={artistAlbums} />
         </TabsContent>
         <TabsContent value="latest">
-          <section className="flex flex-wrap gap-3 items-center  ">
+          <section className="flex flex-wrap gap-2 justify-center items-center  ">
             {data?.data
               ?.slice(0, 8)
               .map((track: Song & ArtistSong & UserSong, i: number) => (
@@ -63,8 +63,7 @@ const Artist = () => {
                   song={track}
                   i={i}
                   key={track.id}
-                  artistId={params?.artistId}
-                  className="w-40 h-60"
+                  className=""
                 />
               ))}
           </section>

@@ -3,16 +3,6 @@ export type Song = {
   key: string;
   title: string;
   subtitle: string;
-  share: {
-    subject: string;
-    text: string;
-    href: string;
-    image: string;
-    twitter: string;
-    html: string;
-    avatar: string;
-    snapchat: string;
-  };
   images: Image;
   hub: HUB;
   artists: {
@@ -45,6 +35,8 @@ type UserSong = {
   name: string;
   artist_Id: string;
   liked: boolean;
+  artistName: string;
+  genre: string;
 };
 
 export type ArtistSong = {
@@ -91,4 +83,12 @@ type UserAlbums = {
   userId: string;
   Image: string;
   liked: boolean;
+};
+
+type Genre = {
+  id: string;
+  listid: string;
+  name: string;
+  urlPath: string;
+  count: number;
 };

@@ -7,7 +7,7 @@ type Props = {
   childern: React.ReactNode;
 };
 
-export const ProtectedRoutes = ({ childern }: Props) => {
+export default function ProtectedRoutes({ childern }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { onOpen } = useModal();
@@ -15,5 +15,5 @@ export const ProtectedRoutes = ({ childern }: Props) => {
     return onOpen();
   }
 
-  return childern;
-};
+  return <>{childern}</>;
+}

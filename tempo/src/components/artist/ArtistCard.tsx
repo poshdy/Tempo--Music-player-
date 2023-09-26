@@ -1,3 +1,4 @@
+import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +11,7 @@ const ArtistCard = ({ artist, className }: Props) => {
   const navigate = useNavigate();
   return (
     <section
-      className="flex flex-col items-center gap-1 w-full hover:bg-[#0b0b0b]/50  text-[#d2d2d2] p-3 rounded-lg duration-300 ease-in-out  cursor-pointer "
+      className={`flex flex-col items-center gap-1 w-full ${Styles.transtions}  cursor-pointer `}
       onClick={() =>
         navigate(
           `/artist/${
@@ -22,10 +23,10 @@ const ArtistCard = ({ artist, className }: Props) => {
       <img
         src={
           artist?.images?.background ||
-          artist?.Image?.replace("{w}", "200").replace("{h}", "200")
+          artist?.Image?.replace("{w}", "175").replace("{h}", "175")
         }
         className={cn(
-          "w-[100px] md:w-[150px] aspect-square  object-cover rounded-full",
+          "w-[150px] md:w-[175px] aspect-square object-cover rounded-full",
           className
         )}
         alt="artist-photo"

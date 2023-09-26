@@ -12,10 +12,10 @@ import {
 
 import { Suspense, lazy } from "react";
 import { useSongModal } from "./zustand/songModal";
-import ProtectedRoutes from "./components/ProtectedRoutes";
 
+import TrackInfo from "./Pages/TrackInfo";
 const Search = lazy(() => import("@/Pages/Search"));
-const Dashboard = lazy(() => import("@/Pages/Dashboard"));
+const Library = lazy(() => import("@/Pages/Library"));
 const Artist = lazy(() => import("@/Pages/Artist"));
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     ? activeSong?.attributes?.name
     : activeSong?.title || activeSong?.name;
   return (
-    <main className="bg-gradient-to-br from-[#C02425] to-[#F0CB35] text-primary md:flex relative">
+    <main className="bg-orange-500 text-[#dcdcdc] md:flex relative">
       <SideBar />
       <section
         className={`min-h-screen md:flex-grow overflow-hidden bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary `}
@@ -34,6 +34,14 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/library"
+            element={
+              <Suspense fallback={<h2>Loadingg</h2>}>
+                <Library />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<NotFound />} />
           <Route
             path="/artist/:artistId"
@@ -56,17 +64,6 @@ function App() {
             <Route path=":searchterm" element={<SearchResults />} />
           </Route>
           <Route path="/lists/:listId" element={<ListDetails />} />
-
-          <Route
-            path="/dashboard"
-            element={
-              <Suspense fallback={<h1>Loaddinff</h1>}>
-                <ProtectedRoutes>
-                  <Dashboard />
-                </ProtectedRoutes>
-              </Suspense>
-            }
-          />
         </Routes>
       </section>
 
@@ -80,6 +77,13 @@ function App() {
         </section>
       )}
       <AuthModal />
+      {Content && (
+        <Suspense fallback={<h1>loadingg</h1>}>
+          <section className="hidden md:flex sticky top-0 right-0 z-40 h-screen min-w-min max-w-sm bg-black ">
+            <TrackInfo />
+          </section>
+        </Suspense>
+      )}
     </main>
   );
 }

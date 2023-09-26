@@ -1,36 +1,53 @@
 import { ArtistAlbums, UserAlbums } from "@/types/types";
 import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-type Albums = ArtistAlbums[] & UserAlbums[];
 type Props = {
-  artistAlbums: Albums;
+  artistAlbums: ArtistAlbums[] & UserAlbums[] | null;
 };
 
 const ArtistAlbum = ({ artistAlbums }: Props) => {
   const Navigate = useNavigate();
   return (
-    <section className="flex flex-col gap-2 md:flex-row md:flex-wrap items-center   ">
+    <Swiper
+      loop={true}
+      breakpoints={{
+        320: {
+          slidesPerView: 2,
+          spaceBetween: 5,
+        },
+        480: {
+          slidesPerView: 3,
+          spaceBetween: 15,
+        },
+        640: {
+          slidesPerView: 4,
+          spaceBetween: 25,
+        },
+      }}
+    >
       {artistAlbums?.slice(0, 6).map((album: any) => (
-        <div
-          key={album?.id || album?.albumId}
-          onClick={() =>
-            Navigate(
-              `/artist/album/${album?.albumId ? album?.albumId : album?.id}`
-            )
-          }
-          className="hover:scale-105 duration-300 ease-in-out rounded-md"
-        >
-          <img
-            src={
-              album?.attributes?.artwork?.url
-                .replace("{w}", "120")
-                .replace("{h}", "120") ||
-              album?.Image?.replace("{w}", "120").replace("{h}", "120")
+        <SwiperSlide key={album?.id || album?.albumId}>
+          <div
+            onClick={() =>
+              Navigate(
+                `/artist/album/${album?.albumId ? album?.albumId : album?.id}`
+              )
             }
-          />
-        </div>
+            className="hover:scale-105 duration-300 ease-in-out rounded-md"
+          >
+            <img
+              src={
+                album?.attributes?.artwork?.url
+                  .replace("{w}", "175")
+                  .replace("{h}", "175") ||
+                album?.Image?.replace("{w}", "175").replace("{h}", "175")
+              }
+            />
+          </div>
+        </SwiperSlide>
       ))}
-    </section>
+    </Swiper>
   );
 };
 

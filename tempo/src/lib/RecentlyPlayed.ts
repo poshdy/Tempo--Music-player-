@@ -8,14 +8,14 @@ export const recentlyPlayed = async (
 ) => {
   const { data } = await Client.from("recently-played")
     .select("songId")
-    .eq("songId", song?.id || song?.songId || song?.key);
+    .eq("songId", song?.key || song?.id || song?.songId);
 
   if (data?.length === 0) {
-    const { error, status } = await Client.from("recently-played")
+    const { error } = await Client.from("recently-played")
       .insert({
         userId: userId,
         songId: song?.key || song?.id || song?.songId,
-        songName: song?.name || song?.title || song?.attributes.name,
+        name: song?.name || song?.title || song?.attributes.name,
         Image:
           song?.Image ||
           song?.attributes?.artwork?.url ||
@@ -35,9 +35,4 @@ export const recentlyPlayed = async (
   } else {
     return;
   }
-
-  //   if (data !== null) {
-
-  //     console.log(status);
-  //   }
 };
