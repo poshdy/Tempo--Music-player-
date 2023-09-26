@@ -1,4 +1,4 @@
-import { Wrapper } from "../components/index";
+import { TopArtists, Wrapper } from "../components/index";
 import FavoriteArtists from "@/components/FavoriteArtists";
 import { Suspense } from "react";
 import FavArtistsSkeleton from "@/components/skeletons/FavArtistsSkeleton";
@@ -10,24 +10,26 @@ import { useFetchLists } from "@/hooks/use-FetchList";
 import { useNavigate } from "react-router-dom";
 import { Genre } from "@/types/types";
 import Title from "../components/Title";
-import { Swiper , SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useAuth } from "@/hooks/use-Auth";
 const Home = () => {
   const { data } = useFetchLists();
+  const { user } = useAuth();
 
   const navigate = useNavigate();
   return (
     <Wrapper className="my-14 space-y-10">
       <Suspense fallback={<FavArtistsSkeleton />}>
-        <FavoriteArtists />
+        {user ? <FavoriteArtists /> : <TopArtists />}
       </Suspense>
       <Suspense fallback={<FavArtistsSkeleton />}>
-        <RecentlyPlayed />
+        {user && <RecentlyPlayed />}
       </Suspense>
       <Suspense fallback={<SongbarSkeleton />}>
         <TopCharts />
       </Suspense>
       <Suspense fallback={<FavArtistsSkeleton />}>
-        <FavoriteAlbums />
+        {user && <FavoriteAlbums />}
       </Suspense>
       <Suspense fallback={<h1>Loadingg</h1>}>
         <Title title="Top Charts" />

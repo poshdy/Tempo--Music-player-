@@ -1,65 +1,61 @@
-import { Session} from "@supabase/supabase-js";
-
+import { Session } from "@supabase/supabase-js";
 import React, { useEffect, useContext, createContext, useState } from "react";
-
-import {useQuery} from '@tanstack/react-query'
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "./use-SupaBase";
 
 type USER = {
   id: string;
-  avatar_url: string |  undefined;
+  avatar_url: string | undefined;
   email: string | null;
   user_name: string | null;
 };
 
 interface ContextI {
   user: USER | null;
-  isLoading: boolean;
-  error: any;
-  SignUp: (email: string, password: string) => Promise<string | null>;
+
   signOut: () => Promise<void>;
   SignUpWithMagiclink: (email: string) => Promise<string | null>;
   signInWithGoogle: () => Promise<void>;
 }
 const Context = createContext<ContextI>({
   user: null,
-  error: null,
-  isLoading: true,
   signOut: async () => {},
-  SignUp: async (email: string, password: string) => null,
   SignUpWithMagiclink: async (email: string) => null,
   signInWithGoogle: async () => {},
 });
 
+
 export default function SupabaseAuthProvider({
   children,
-  session,
 }: {
   children: React.ReactNode;
-  session: Session | null;
 }) {
   const navigate = useNavigate();
   const Supabase = useSupabase();
-const [data , setData] = useState<any>()
+  const [data, setData] = useState<any>();
+  const [session, setSession] = useState<Session>();
+  
   useEffect(() => {
-    const getUserInfo = async()=>{
-      const { data } = await Supabase.auth.getUser();
-      setData(data)
-
-    }
+    const getSession = async () => {
+      const { data } = await Supabase.auth.getSession();
+      setSession(data?.session);
+      setData(data?.session?.user)
+    };
 
   }, []);
+
+
 
   const getUser = async () => {
     const { data: user, error } = await Supabase.from("users")
       .select("*")
-      .eq("id", session?.user.id)
+      .eq("id", session?.user?.id)
       .single();
 
-      if(!user?.avatar_url){
-        getUserImg();
-      }
+    if (!user?.avatar_url) {
+      getUserImg();
+    }
 
     if (error) {
       return null;
@@ -69,41 +65,28 @@ const [data , setData] = useState<any>()
   };
 
   const getUserImg = async () => {
-    const { error } = await Supabase.from("users").update({
-      avatar_url: data?.user?.user_metadata,
-    }).eq('id',data?.user?.id);
+    const { error } = await Supabase.from("users")
+      .update({
+        avatar_url: session?.user?.user_metadata?.avatar_url,
+      })
+      .eq("id", data?.user?.id);
   };
-
 
   const {
     data: user,
-    isLoading,
-    error,
   } = useQuery({
-    queryKey: ["user-session"],
+    queryKey: ["user-session", session?.user?.id],
     queryFn: getUser,
     enabled: !!session?.user.id,
   });
 
-  const SignUp = async (email: string, password: string) => {
-    const { error } = await Supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) {
-      return error.message;
-    }
-
-    return null;
-  };
+ 
 
   const SignUpWithMagiclink = async (email: string) => {
     const { error } = await Supabase.auth.signInWithOtp({ email });
-
     if (error) {
       return error.message;
     }
-
     return null;
   };
 
@@ -117,27 +100,23 @@ const [data , setData] = useState<any>()
     await Supabase.auth.signOut();
     navigate("/");
   };
-  useEffect(() => {
+
+  useEffect(()=>{
     const {
       data: { subscription },
-    } = Supabase.auth.onAuthStateChange((event, Session) => {
-      if (Session?.access_token !== session?.access_token) {
-        navigate(0);
-      }
+    } = Supabase.auth.onAuthStateChange((_event, Session) => {
+     setSession(Session)
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [navigate, Supabase, session?.access_token]);
+  },[session?.access_token,Supabase])
 
   const value = {
     user,
-    error,
-    SignUp,
     SignUpWithMagiclink,
     signOut,
-    isLoading,
     signInWithGoogle,
   };
   return (
