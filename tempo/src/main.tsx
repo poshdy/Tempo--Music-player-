@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -13,8 +13,17 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import SupabaseProvider from "./hooks/use-SupaBase.tsx";
 import { supabase } from "./lib/supabaseClient.ts";
+import { Session } from "@supabase/supabase-js";
 
-const { data } = await supabase.auth.getSession();
+const [data,setData] = useState<any>()
+useEffect(()=>{
+  const getSession = async()=>{
+    const {data} = await supabase.auth.getSession()
+    setData(data)
+  }
+  getSession()
+
+},[data.access_token])
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -29,7 +38,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <QueryClientProvider client={queryClient}>
         <SupabaseProvider>
-          <SupabaseAuthProvider session={data.session}>
+          <SupabaseAuthProvider session={data}>
             <App />
             <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
           </SupabaseAuthProvider>
