@@ -5,19 +5,17 @@ import usePlayPause from "@/hooks/use-Play-Pause";
 import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
 import { Song, ArtistSong, UserSong } from "@/types/types";
-import SongCardContext from "./SongContext";
-import Image from "./Image";
 
-type SongType = Song & ArtistSong & UserSong;
+
 
 type Props = {
-  song: SongType;
+  song: Song & ArtistSong & UserSong;
   i: number;
   data: Song[] | ArtistSong[] | UserSong[];
   className: string;
 };
 
-const SongCard = ({  song, i, data, className }: Props) => {
+const SongCard = ({ song, i, data, className }: Props) => {
   const { isPlaying, activeSong } = usePlayer();
   const { handlePause, handlePlay } = usePlayPause();
   return (

@@ -15,7 +15,7 @@ const FavoriteSongs = (props: Props) => {
     enabled: !!user?.id,
     suspense: true,
   });
-  return <SongBar data={data?.data} title="" />;
+  return <SongBar hasBackground={false} data={data?.data} title="" />;
 };
 
 export default FavoriteSongs;

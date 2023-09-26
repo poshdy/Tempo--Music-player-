@@ -5,7 +5,7 @@ type Props = {
   value: number | undefined;
   min: any;
   max: number;
-  onInput: (event: any) => void
+  onInput: (event: any) => any
   setSeekTime:React.Dispatch<React.SetStateAction<number | undefined|null>>;
   appTime: number;
 };
@@ -13,7 +13,7 @@ type Props = {
 const Seekbar = ({ value, appTime, min, max, setSeekTime,onInput }: Props) => {
   const {isOpen} = useSongModal()
   
-  const getTime = (time: number|any) => {
+  const getTime = (time: any) => {
    return `${Math.floor(+time / 60)}:${`0${Math.floor(+time % 60)}`.slice(-2)}`;
   };
 
@@ -29,7 +29,6 @@ const Seekbar = ({ value, appTime, min, max, setSeekTime,onInput }: Props) => {
       <p className="text-white">{value === 0 ? '0:00' : getTime(value)}</p>
       <Progress
         value={value}
-        min={min}
         max={max}
         onInput={onInput}
         className="md:block w-24 md:w-56 2xl:w-96 h-1 mx-4 2xl:mx-6 rounded-lg"

@@ -1,5 +1,5 @@
 import { useSearch } from "@/hooks/use-Search";
-import { ArtistSong, Song } from "@/types/types";
+import { ArtistSong, Song, UserSong } from "@/types/types";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { SongCard } from "..";
@@ -30,13 +30,13 @@ const SearchResults = () => {
         src={data?.artists?.hits[0].artist.avatar}
       />
       <div className="flex flex-wrap items-center justify-center md:justify-start md:items-start gap-2">
-        {tracks?.map((track: Song & ArtistSong, i: number) => (
+        {tracks?.map((track: Song & ArtistSong & UserSong, i: number) => (
           <SongCard
             className={`md:w-52 md:h-60 ${Styles.transtions}`}
             data={data?.tracks.hits}
             song={track}
             i={i}
-            key={track.key}
+            key={track?.key}
           />
         ))}
       </div>

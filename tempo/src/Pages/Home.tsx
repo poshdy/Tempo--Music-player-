@@ -10,6 +10,7 @@ import { useFetchLists } from "@/hooks/use-FetchList";
 import { useNavigate } from "react-router-dom";
 import { Genre } from "@/types/types";
 import Title from "../components/Title";
+import { Swiper , SwiperSlide } from "swiper/react";
 const Home = () => {
   const { data } = useFetchLists();
 
