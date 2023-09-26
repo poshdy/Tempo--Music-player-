@@ -1,8 +1,5 @@
 import { LikeButton } from "@/components";
-import { useArtist, useArtistSummary } from "@/hooks/useArtist";
 import { usePlayer } from "@/zustand/music-player";
-import React from "react";
-
 type Props = {};
 
 function TrackInfo({}: Props) {

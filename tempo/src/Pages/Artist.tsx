@@ -32,8 +32,7 @@ const Artist = () => {
     <section className={"w-full flex flex-col "}>
       <HeaderImage
         ID="artist"
-        artistData={artistData[0]}
-        data={data?.data?.slice(0, 8)}
+        artistData={artistData}
       />
 
       <Tabs defaultValue="popular" className={`w-full`}>

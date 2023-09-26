@@ -1,5 +1,5 @@
 import { useSupabase } from "@/hooks/use-SupaBase";
-import { FetchDatabase } from "./FetchDatabase";
+// import { FetchDatabase } from "./FetchDatabase";
 import { useAuth } from "@/hooks/use-Auth";
 
 const supabase = useSupabase();

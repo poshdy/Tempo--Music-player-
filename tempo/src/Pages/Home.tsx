@@ -1,5 +1,4 @@
 import { Wrapper } from "../components/index";
-import { useAuth } from "@/hooks/use-Auth";
 import FavoriteArtists from "@/components/FavoriteArtists";
 import { Suspense } from "react";
 import FavArtistsSkeleton from "@/components/skeletons/FavArtistsSkeleton";
@@ -10,12 +9,10 @@ import RecentlyPlayed from "@/components/RecentlyPlayed";
 import { useFetchLists } from "@/hooks/use-FetchList";
 import { useNavigate } from "react-router-dom";
 import { Genre } from "@/types/types";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Title from "../components/Title";
 const Home = () => {
   const { data } = useFetchLists();
-  // console.log(data)
-  // const { user } = useAuth();
+
   const navigate = useNavigate();
   return (
     <Wrapper className="my-14 space-y-10">

@@ -29,7 +29,6 @@ function FollowArtist({ artistData }: Props) {
         artistId: artistData.id,
         Image: artistData?.attributes?.artwork?.url,
         name: artistData?.attributes?.name,
-        isfollowed:true
       });
       if(error){
         console.error(error.details)

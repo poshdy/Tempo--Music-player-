@@ -1,8 +1,8 @@
-import { Session, User } from "@supabase/supabase-js";
+import { Session} from "@supabase/supabase-js";
 
 import React, { useEffect, useContext, createContext, useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
+import {useQuery} from '@tanstack/react-query'
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "./use-SupaBase";
 

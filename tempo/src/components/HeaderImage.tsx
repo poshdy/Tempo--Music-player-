@@ -3,7 +3,7 @@ import FollowArtist from "./FollowArtist";
 import AddAlbumToLikes from "./AddAlbumToLikes";
 
 type Props = {
-  artistData?: any;
+  artistData: any;
   ID: "album" | "artist";
 };
 
@@ -17,7 +17,6 @@ const HeaderImage = ({ artistData, ID }: Props) => {
         className="object-cover rounded-2xl max-w-[370px] "
       />
       <div className="flex flex-col gap-1">
-        <h2 className={`${Styles.Paragraph} `}>{artistData?.type}</h2>
         <h2 className={`${Styles.heading} `}>{artistData?.attributes?.name}</h2>
         <h2 className={`${Styles.subHeading} `}>
           {artistData?.attributes?.artistName}

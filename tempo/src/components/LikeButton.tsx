@@ -1,16 +1,14 @@
 import { useAuth } from "@/hooks/use-Auth";
 
-import React, { useEffect } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
 import { useToast } from "./ui/use-toast";
 import { useModal } from "@/zustand/Modal";
 import { useSupabase } from "@/hooks/use-SupaBase";
-import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   artistId?: string;
   song: any;
-  SongId: string;
+  SongId?: string;
 };
 
 const LikeButton = ({ artistId, song, SongId }: Props) => {

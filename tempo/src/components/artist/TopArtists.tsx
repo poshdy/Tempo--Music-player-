@@ -1,5 +1,4 @@
 import { Song } from "@/types/types";
-import React from "react";
 import ArtistCard from "./ArtistCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Pagination ,Navigation} from "swiper/modules";

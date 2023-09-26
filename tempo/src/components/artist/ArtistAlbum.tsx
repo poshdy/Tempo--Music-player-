@@ -1,9 +1,8 @@
-import { ArtistAlbums, UserAlbums } from "@/types/types";
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 type Props = {
-  artistAlbums: ArtistAlbums[] & UserAlbums[] | null;
+  artistAlbums: any;
 };
 
 const ArtistAlbum = ({ artistAlbums }: Props) => {

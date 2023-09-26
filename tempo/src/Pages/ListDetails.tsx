@@ -1,13 +1,10 @@
 import { SongBar } from "@/components";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFetchListSongs } from "@/hooks/use-fetchSong";
-import { Song } from "@/types/types";
-import React from "react";
+
 import { useParams } from "react-router-dom";
 
-type Props = {};
-
-const ListDetails = (props: Props) => {
+const ListDetails = () => {
   const param = useParams();
   const { data, isError, isLoading, error } = useFetchListSongs(param.listId);
 

@@ -1,6 +1,4 @@
-import React from "react";
 import { Wrapper } from "@/components";
-import { useAuth } from "@/hooks/use-Auth";
 import { useState } from "react";
 import Header from "@/components/Header";
 import ProfileEdit from "@/components/ProfileEdit";
@@ -8,9 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FavoriteArtists from "@/components/FavoriteArtists";
 import FavoriteAlbums from "@/components/FavoriteAlbums";
 import FavoriteSongs from "@/components/FavoriteSongs";
-type Props = {};
 
-const Library = (props: Props) => {
+const Library = () => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -20,7 +17,9 @@ const Library = (props: Props) => {
       <ProfileEdit setModal={setModal} modal={modal} />
 
       <Tabs defaultValue="fav-songs" className={`w-full space-y-5`}>
-        <TabsList className={`w-full flex items-start flex-wrap gap-2 md:gap-2 justify-start`}>
+        <TabsList
+          className={`w-full flex items-start flex-wrap gap-2 md:gap-2 justify-start`}
+        >
           <TabsTrigger value="fav-songs">Liked Songs</TabsTrigger>
           <TabsTrigger value="fav-albums">Liked Albums</TabsTrigger>
           <TabsTrigger value="fav-artists">Followed Artists</TabsTrigger>
