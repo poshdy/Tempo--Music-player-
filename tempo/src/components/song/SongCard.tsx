@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import PlayPause from "../PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import usePlayPause from "@/hooks/use-Play-Pause";
@@ -64,6 +63,4 @@ const SongCard = ({ song, i, data, className }: Props) => {
 };
 
 export default SongCard;
-{
-  /**/
-}
+

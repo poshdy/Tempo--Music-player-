@@ -13,7 +13,7 @@ type Props = {
   data: ArrayData[];
   artistId?: string;
   title: string;
-  hasBackground: boolean;
+  hasBackground?: boolean;
 };
 
 const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
@@ -24,13 +24,13 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
     <section
       className={cn(
         "flex flex-col gap-3",
-        hasBackground && "bg-black rounded-2xl p-10"
+        hasBackground && "bg-orange-500 rounded-2xl p-10 text-[#0a0a0a]"
       )}
     >
-      <Title className="text-2xl md:text-3xl" title={title} />
+      <Title className="text-black" title={title} />
       {data?.map((track, i: number) => (
         <section
-          className={`w-full flex items-center justify-between p-1 group rounded-md  hover:bg-black ${Styles.transtions}`}
+          className={`w-full flex items-center justify-between p-1  group rounded-md  hover:bg-white ${Styles.transtions}`}
           key={track?.id || track?.key || track?.songId}
         >
           <section className="flex items-center gap-2">
@@ -56,12 +56,14 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
               className="w-12 aspect-square object-cover rounded-md"
             />
             <div className="flex flex-col items-start gap-1 text-xs">
-              <h2 className="font-semibold text-sm">{track?.attributes?.name || track?.title || track?.name}</h2>
+              <h2 className="font-semibold text-sm ">
+                {track?.attributes?.name || track?.title || track?.name}
+              </h2>
               {artistId ? (
                 <h2>{track?.attributes?.albumName}</h2>
               ) : (
                 <Link
-                  className="w-32 truncate"
+                  className="w-32 truncate "
                   to={`/artist/${
                     track?.artists
                       ? track?.artists[0]?.adamid
@@ -73,7 +75,11 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
               )}
             </div>
           </section>
-          <LikeButton artistId={artistId} song={track} SongId={track.id || track.key} />
+          <LikeButton
+            artistId={artistId}
+            song={track}
+            SongId={track.id || track.key}
+          />
         </section>
       ))}
     </section>

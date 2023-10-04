@@ -17,15 +17,6 @@ const LikeButton = ({ artistId, song, SongId }: Props) => {
   const { onOpen } = useModal();
   const { toast } = useToast();
 
-  // const { data } = useQuery({
-  //   queryKey: ["isLiked", SongId],
-  //   queryFn: async () =>
-  //     await Supabase.from("favorite-songs")
-  //       .select("*")
-  //       .eq("userId", user?.id)
-  //       .eq("songId", SongId),
-  // });
-
   const handleClick = async () => {
     try {
       if (!user) {
@@ -53,15 +44,7 @@ const LikeButton = ({ artistId, song, SongId }: Props) => {
       console.error(error);
     }
   };
-  return (
-    // <>
-    //   {data?.data?.length === 0 ? (
-    <AiOutlineHeart size={25} onClick={handleClick} />
-    //   ) : (
-    //     <AiFillHeart size={25} className={`text-orange-400`} />
-    //   )}
-    // </>
-  );
+  return <AiOutlineHeart size={25} onClick={handleClick} />;
 };
 
 export default LikeButton;

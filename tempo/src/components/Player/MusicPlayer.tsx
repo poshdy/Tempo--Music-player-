@@ -1,5 +1,5 @@
 import { usePlayer } from "@/zustand/music-player";
-import React, { useState, useEffect ,Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Controls from "./Controls";
 import Player from "./Player";
 import Seekbar from "./Seekbar";
@@ -74,12 +74,15 @@ const MusicPlayer = () => {
     >
       <div
         onClick={() => (isOpen ? onClose() : onOpen())}
-        className={`flex md:hidden absolute right-5 top-0 bg-yellow-100/20 ${Styles.transtions} rounded-full`}
+        className={`flex md:hidden absolute right-5 top-0  ${Styles.transtions} rounded-full`}
       >
         {isOpen ? (
-          <MdKeyboardArrowDown size={30} />
+          <MdKeyboardArrowDown className=" bg-orange-500" size={30} />
         ) : (
-          <MdKeyboardArrowUp size={30} className="text-red-50" />
+          <MdKeyboardArrowUp
+            className="bg-white backdrop-blur-sm drop-shadow-md bg-opacity-20"
+            size={30}
+          />
         )}
       </div>
       <Track
@@ -134,7 +137,7 @@ const MusicPlayer = () => {
         setVolume={setVolume}
       />
       {isOpen && (
-        <Suspense fallback={<LyricsSkeleton/>}>
+        <Suspense fallback={<LyricsSkeleton />}>
           <SongLyrics
             songId={activeSong.id || activeSong.key || activeSong.songId}
           />

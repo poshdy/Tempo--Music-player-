@@ -8,11 +8,10 @@ import App from "./App.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
 import SupabaseAuthProvider from "./hooks/use-Auth.tsx";
 import "swiper/css";
-import "swiper/css/navigation";
+import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import SupabaseProvider from "./hooks/use-SupaBase.tsx";
-
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <QueryClientProvider client={queryClient}>
         <SupabaseProvider>
-          <SupabaseAuthProvider >
+          <SupabaseAuthProvider>
             <App />
             <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
           </SupabaseAuthProvider>

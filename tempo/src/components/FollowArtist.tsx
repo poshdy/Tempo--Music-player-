@@ -14,7 +14,6 @@ type Props = {
 
 function FollowArtist({ artistData }: Props) {
   const [isFollowed, setIsFollowed] = useState<boolean>(false);
-  const [Error, setError] = useState()
   const { onOpen } = useModal();
   const { user } = useAuth();
   const Supabase = useSupabase();
@@ -30,8 +29,8 @@ function FollowArtist({ artistData }: Props) {
         Image: artistData?.attributes?.artwork?.url,
         name: artistData?.attributes?.name,
       });
-      if(error){
-        console.error(error.details)
+      if (error) {
+        console.error(error.details);
       }
       setIsFollowed(true);
       toast({

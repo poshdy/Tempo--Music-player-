@@ -11,8 +11,8 @@ const TopArtists = ({}: Props) => {
   const { data } = useFetchSongs();
 
   return (
-    <>
-    <Title title="Trending Artists"/>
+    <section className="bg-[#151515] rounded-lg shadow-md p-5 space-y-2">
+      <Title title="Top Artists This Week" />
       <Swiper
         modules={[EffectCoverflow, Pagination, Navigation]}
         effect="coverflow"
@@ -34,7 +34,7 @@ const TopArtists = ({}: Props) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </>
+    </section>
   );
 };
 export default TopArtists;

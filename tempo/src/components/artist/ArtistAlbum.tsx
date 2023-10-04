@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import "swiper/css/effect-cards";
+import { EffectCards } from "swiper/modules";
 type Props = {
   artistAlbums: any;
 };
@@ -8,23 +9,7 @@ type Props = {
 const ArtistAlbum = ({ artistAlbums }: Props) => {
   const Navigate = useNavigate();
   return (
-    <Swiper
-      loop={true}
-      breakpoints={{
-        320: {
-          slidesPerView: 2,
-          spaceBetween: 5,
-        },
-        480: {
-          slidesPerView: 3,
-          spaceBetween: 15,
-        },
-        640: {
-          slidesPerView: 4,
-          spaceBetween: 25,
-        },
-      }}
-    >
+    <Swiper effect={"cards"} grabCursor={true} modules={[EffectCards]} className="flex items-center justify-center">
       {artistAlbums?.slice(0, 6).map((album: any) => (
         <SwiperSlide key={album?.id || album?.albumId}>
           <div

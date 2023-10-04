@@ -1,6 +1,7 @@
 import { Styles } from "@/Styles";
 import FollowArtist from "./FollowArtist";
 import AddAlbumToLikes from "./AddAlbumToLikes";
+import { ArtistAlbums, ArtistSong } from "@/types/types";
 
 type Props = {
   artistData: any;
@@ -9,7 +10,7 @@ type Props = {
 
 const HeaderImage = ({ artistData, ID }: Props) => {
   return (
-    <section className="flex flex-col container items-center  justify-center md:flex-row md:items-start md:justify-start  bg-black">
+    <section className="flex flex-col container items-center justify-center md:flex-row md:items-start md:justify-start  bg-black">
       <img
         src={artistData?.attributes?.artwork?.url
           .replace("{w}", `350`)

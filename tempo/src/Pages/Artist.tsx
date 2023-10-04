@@ -10,30 +10,15 @@ import { useParams } from "react-router-dom";
 
 const Artist = () => {
   const params = useParams();
-  const { data, isLoading, isError, error } = useArtist(params.artistId);
-  const {
-    data: ArtistSummary,
-    isLoading: Loading,
-    isError: Error,
-    error: err,
-  } = useArtistSummary(params.artistId);
-
-  if (isLoading || Loading) {
-    return <Skeleton className="container h-[40vh]" />;
-  }
-  if (isError || Error) {
-    console.error("artistSummary Err", err || "artistError", error);
-  }
+  const { data } = useArtist(params.artistId);
+  const { data: ArtistSummary } = useArtistSummary(params.artistId);
 
   const artistData = Object.values(ArtistSummary?.artists);
   const artistAlbums = Object.values(ArtistSummary?.albums);
 
   return (
     <section className={"w-full flex flex-col "}>
-      <HeaderImage
-        ID="artist"
-        artistData={artistData}
-      />
+      <HeaderImage ID="artist" artistData={artistData} />
 
       <Tabs defaultValue="popular" className={`w-full`}>
         <TabsList className={`w-full flex p-4 justify-start bg-black `}>

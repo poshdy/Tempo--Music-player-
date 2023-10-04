@@ -14,7 +14,7 @@ const Track = ({ isActive, isPlaying, activeSong }: Props) => {
     <div
       className={`${
         isOpen
-          ? "flex flex-col  justify-center items-center gap-2"
+          ? "flex flex-col-reverse  justify-center items-center gap-2"
           : "md:flex-1 flex items-center justify-start "
       }`}
     >
@@ -23,28 +23,32 @@ const Track = ({ isActive, isPlaying, activeSong }: Props) => {
           activeSong?.images?.coverart
             ? activeSong?.images?.coverart
             : activeSong?.attributes?.artwork?.url
-                .replace("{w}", "150")
-                .replace("{h}", "150") || activeSong?.Image
+                .replace("{w}", "200")
+                .replace("{h}", "200") || activeSong?.Image
         }
         alt="cover art"
-        className={`rounded-full object-cover  ${
-          isOpen ? "w-52 aspect-square " : "w-12 h-14  md:h-16 md:w-16 p-1 mr-2"
+        className={` object-cover  ${
+          isOpen
+            ? "w-56 aspect-square rounded-3xl"
+            : "w-12 h-14 rounded-full  md:h-16 md:w-16 p-1 mr-2"
         }  
           
         }`}
       />
 
       <div
-        className={`w-[30%] text-xs  ${
-          isOpen && "text-5xl flex flex-col items-center justify-center"
+        className={` ${
+          isOpen
+            ? "text-2xl flex flex-col items-center justify-center"
+            : "w-[30%] text-xs "
         }`}
       >
-        <p className="truncate text-white font-bold ">
+        <p className="truncate font-bold ">
           {activeSong?.title
             ? activeSong?.title
             : activeSong?.attributes?.name || activeSong?.name}
         </p>
-        <p className="truncate  text-gray-300">
+        <p className="truncate font-medium text-sm">
           {activeSong?.subtitle
             ? activeSong?.subtitle
             : activeSong?.attributes?.artistName}

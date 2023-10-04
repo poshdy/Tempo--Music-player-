@@ -26,10 +26,10 @@ function App() {
     ? activeSong?.attributes?.name
     : activeSong?.title || activeSong?.name;
   return (
-    <main className="bg-orange-500 text-[#dcdcdc] md:flex relative">
+    <main className=" text-[#dcdcdc] md:flex relative">
       <SideBar />
       <section
-        className={`min-h-screen md:flex-grow overflow-hidden bg-black backdrop-blur-md bg-opacity-90 drop-shadow-lg text-secondary `}
+        className={`min-h-screen md:flex-grow overflow-hidden bg-[#040404] `}
       >
         <NavBar />
         <Routes>
@@ -69,7 +69,7 @@ function App() {
 
       {Content && (
         <section
-          className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white bg-opacity-20 drop-shadow-lg  backdrop-blur-lg z-40 md:z-50 ${
+          className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white ${isOpen ? 'bg-[#fff0d0] text-black ' :"bg-opacity-20 drop-shadow-lg  backdrop-blur-lg"}  z-40 md:z-50 ${
             isOpen && "h-screen"
           }`}
         >

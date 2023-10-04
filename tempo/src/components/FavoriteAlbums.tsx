@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FetchDatabase } from "@/lib/FetchDatabase";
 import { useAuth } from "@/hooks/use-Auth";
@@ -20,7 +19,6 @@ const FavoriteAlbums = (props: Props) => {
   return (
     <>
       <Title title="Liked Albums" />
-
       <ArtistAlbum artistAlbums={data?.data} />
     </>
   );
