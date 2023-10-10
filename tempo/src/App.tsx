@@ -22,7 +22,7 @@ function App() {
   const { activeSong } = usePlayer();
   const { isOpen } = useSongModal();
 
-  let Content = activeSong?.attributes?.name
+  const Content = activeSong?.attributes?.name
     ? activeSong?.attributes?.name
     : activeSong?.title || activeSong?.name;
   return (
@@ -42,7 +42,7 @@ function App() {
               </Suspense>
             }
           />
-          <Route path="*" element={<NotFound />} />
+
           <Route
             path="/artist/:artistId"
             element={
@@ -64,14 +64,17 @@ function App() {
             <Route path=":searchterm" element={<SearchResults />} />
           </Route>
           <Route path="/lists/:listId" element={<ListDetails />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </section>
 
       {Content && (
         <section
-          className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white ${isOpen ? 'bg-[#fff0d0] text-black ' :"bg-opacity-20 drop-shadow-lg  backdrop-blur-lg"}  z-40 md:z-50 ${
-            isOpen && "h-screen"
-          }`}
+          className={`fixed rounded-t-3xl p-1 h-32 md:h-20 bottom-0 md:bottom-0 left-0 right-0 flex justify-start items-start animate-in bg-white ${
+            isOpen
+              ? "bg-[#fff0d0] text-black "
+              : "bg-opacity-20 drop-shadow-lg  backdrop-blur-lg"
+          }  z-40 md:z-50 ${isOpen && "h-screen"}`}
         >
           <MusicPlayer />
         </section>

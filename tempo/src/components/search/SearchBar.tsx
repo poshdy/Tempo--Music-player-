@@ -10,8 +10,6 @@ const SearchBar = () => {
   const navigate = useNavigate();
   useEffect(() => {
     inputRef.current?.focus();
-
-    return () => {};
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,5 +1,5 @@
 import { useSong } from "@/hooks/useSong";
-import { Title } from ".";
+import { Title } from "..";
 
 type Props = {
   songId: string;

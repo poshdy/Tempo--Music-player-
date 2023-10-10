@@ -4,7 +4,7 @@ import { FetchDatabase } from "@/lib/FetchDatabase";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { useAuth } from "@/hooks/use-Auth";
 
-import Slider from "./Slider";
+import Slider from "./shared/Slider";
 
 type Props = {};
 

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
+import Image from "../shared/Image";
 type Props = {
   artistAlbums: any;
 };
@@ -20,7 +21,8 @@ const ArtistAlbum = ({ artistAlbums }: Props) => {
             }
             className="hover:scale-105 duration-300 ease-in-out rounded-md"
           >
-            <img
+            <Image
+            alt="album coverart"
               src={
                 album?.attributes?.artwork?.url
                   .replace("{w}", "175")

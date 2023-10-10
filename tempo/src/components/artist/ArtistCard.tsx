@@ -1,6 +1,7 @@
 import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import Image from "../shared/Image";
 
 type Props = {
   artist: any;
@@ -20,7 +21,7 @@ const ArtistCard = ({ artist, className }: Props) => {
         )
       }
     >
-      <img
+      <Image
         src={
           artist?.images?.background ||
           artist?.Image?.replace("{w}", "175").replace("{h}", "175")

@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "./ui/button";
-import { GrAdd } from "react-icons/gr";
 import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
 import { useToast } from "./ui/use-toast";
-import { AiOutlineCheck } from "react-icons/ai";
-import { Styles } from "@/Styles";
 import { useSupabase } from "@/hooks/use-SupaBase";
+import { Root } from "@/types/types";
 
 type Props = {
-  artistData: any;
+  artistData: Root;
 };
 
 function FollowArtist({ artistData }: Props) {
@@ -43,19 +41,9 @@ function FollowArtist({ artistData }: Props) {
   return (
     <Button
       onClick={handleClick}
-      className={`w-56 flex ${Styles.transtions} items-center gap-1 justify-center bg-transparent border-2 mt-3 rounded-full hover:bg-yellow-300 hover:text-black`}
+      className={` bg-transparent border-2 mt-3 rounded-md`}
     >
-      {isFollowed ? (
-        <>
-          Followed
-          <AiOutlineCheck size={25} />
-        </>
-      ) : (
-        <>
-          Follow
-          <GrAdd size={25} />
-        </>
-      )}
+      {isFollowed ? <p>Followed</p> : <p>Follow</p>}
     </Button>
   );
 }

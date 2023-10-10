@@ -56,4 +56,3 @@ export const useArtistAlbums = (albumId: string | undefined) => {
     },
   });
 };
-

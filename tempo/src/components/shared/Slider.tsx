@@ -1,7 +1,7 @@
 import { FreeMode, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ArtistCard from "./artist/ArtistCard";
-import { SongCard } from ".";
+import ArtistCard from "../artist/ArtistCard";
+import { SongCard } from "..";
 import { ArtistSong, Song, UserSong } from "@/types/types";
 
 type Props = {

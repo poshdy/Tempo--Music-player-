@@ -1,15 +1,14 @@
 import { usePlayer } from "@/zustand/music-player";
-import React, { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Controls from "./Controls";
 import Player from "./Player";
 import Seekbar from "./Seekbar";
 import Track from "./Track";
 import Volume from "./Volume";
-import { AiOutlineArrowUp } from "react-icons/ai";
 import { useSongModal } from "@/zustand/songModal";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Styles } from "@/Styles";
-import SongLyrics from "../SongLyrics";
+import SongLyrics from "../song/SongLyrics";
 import LyricsSkeleton from "../skeletons/LyricsSkeleton";
 
 const MusicPlayer = () => {

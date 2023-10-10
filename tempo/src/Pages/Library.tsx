@@ -1,7 +1,7 @@
 import { Wrapper } from "@/components";
 import { useState } from "react";
-import Header from "@/components/Header";
-import ProfileEdit from "@/components/ProfileEdit";
+import Header from "@/components/profile/Header";
+import ProfileEdit from "@/components/profile/ProfileEdit";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import FavoriteArtists from "@/components/FavoriteArtists";
 import FavoriteAlbums from "@/components/FavoriteAlbums";

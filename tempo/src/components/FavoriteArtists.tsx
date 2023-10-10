@@ -3,10 +3,9 @@ import { FetchDatabase } from "@/lib/FetchDatabase";
 import { useAuth } from "@/hooks/use-Auth";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { Title } from ".";
-import Slider from "./Slider";
-type Props = {};
+import Slider from "./shared/Slider";
 
-const FavoriteArtists = (props: Props) => {
+const FavoriteArtists = () => {
   const supabase = useSupabase();
   const { user } = useAuth();
   const { data } = useQuery({

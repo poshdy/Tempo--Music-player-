@@ -3,10 +3,11 @@ import usePlayPause from "@/hooks/use-Play-Pause";
 import PlayPause from "../PlayPause";
 import { usePlayer } from "@/zustand/music-player";
 import { Styles } from "@/Styles";
-import Title from "../Title";
+import Title from "../shared/Title";
 import LikeButton from "../LikeButton";
 import { ArtistSong, Song, UserSong } from "@/types/types";
 import { cn } from "@/lib/utils";
+import Image from "../shared/Image";
 
 type ArrayData = Song & ArtistSong & UserSong;
 type Props = {
@@ -45,7 +46,8 @@ const trackBar = ({ data, artistId, title, hasBackground }: Props) => {
                 aristId={artistId}
               />
             </span>
-            <img
+            <Image
+            alt="song coverart"
               src={
                 track?.images?.coverart ||
                 track?.attributes?.artwork?.url

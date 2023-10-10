@@ -5,9 +5,7 @@ import { useSupabase } from "@/hooks/use-SupaBase";
 import ArtistAlbum from "./artist/ArtistAlbum";
 import { Title } from ".";
 
-type Props = {};
-
-const FavoriteAlbums = (props: Props) => {
+const FavoriteAlbums = () => {
   const supabase = useSupabase();
   const { user } = useAuth();
   const { data } = useQuery({

@@ -1,12 +1,10 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { FetchDatabase } from "@/lib/FetchDatabase";
 import { useAuth } from "@/hooks/use-Auth";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { SongBar } from ".";
-type Props = {};
 
-const FavoriteSongs = (props: Props) => {
+const FavoriteSongs = () => {
   const supabase = useSupabase();
   const { user } = useAuth();
   const { data } = useQuery({

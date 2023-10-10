@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
 
@@ -23,7 +20,7 @@ import { useToast } from "./ui/use-toast";
 const AuthModal = () => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  const { toast} = useToast();
+  const { toast } = useToast();
   const { isOpen, onClose } = useModal();
   const isModalOpen = isOpen;
   const { signInWithGoogle, SignUpWithMagiclink } = useAuth();
@@ -83,14 +80,14 @@ const AuthModal = () => {
                   placeholder="m@example.com"
                 />
               </div>
+              <Button type="submit" className="w-full">
+                Login with magic link <AiOutlineLink className="mr-2 h-4 w-4" />
+              </Button>
             </form>
           </CardContent>
-          <CardFooter>
-            <Button type="submit" className="w-full">
-              Login with magic link <AiOutlineLink className="mr-2 h-4 w-4" />
-            </Button>
-          </CardFooter>
+          <CardFooter></CardFooter>
         </Card>
+        {error && "something went wrong please try again"}
       </DialogContent>
     </Dialog>
   );

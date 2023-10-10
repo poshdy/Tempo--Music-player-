@@ -1,8 +1,7 @@
 import { LikeButton } from "@/components";
 import { usePlayer } from "@/zustand/music-player";
-type Props = {};
 
-function TrackInfo({}: Props) {
+function TrackInfo() {
   const { activeSong, currentSongs } = usePlayer();
 
   return (

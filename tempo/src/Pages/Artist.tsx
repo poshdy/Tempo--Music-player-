@@ -1,10 +1,9 @@
 import { SongBar, SongCard } from "@/components";
-import HeaderImage from "@/components/HeaderImage";
+import HeaderImage from "@/components/shared/HeaderImage";
 import ArtistAlbum from "@/components/artist/ArtistAlbum";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useArtist, useArtistSummary } from "@/hooks/useArtist";
-import { ArtistSong, Song, UserSong } from "@/types/types";
+import { ArtistSong, Root, Song, UserSong } from "@/types/types";
 
 import { useParams } from "react-router-dom";
 
@@ -13,7 +12,8 @@ const Artist = () => {
   const { data } = useArtist(params.artistId);
   const { data: ArtistSummary } = useArtistSummary(params.artistId);
 
-  const artistData = Object.values(ArtistSummary?.artists);
+  const artistData: Root = Object.values(ArtistSummary?.artists)?.at(0);
+
   const artistAlbums = Object.values(ArtistSummary?.albums);
 
   return (

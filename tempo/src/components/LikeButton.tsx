@@ -11,7 +11,7 @@ type Props = {
   SongId?: string;
 };
 
-const LikeButton = ({ artistId, song, SongId }: Props) => {
+const LikeButton = ({ artistId, song }: Props) => {
   const { user } = useAuth();
   const Supabase = useSupabase();
   const { onOpen } = useModal();

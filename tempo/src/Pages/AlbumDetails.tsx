@@ -1,5 +1,5 @@
 import { SongBar } from "@/components";
-import HeaderImage from "@/components/HeaderImage";
+import HeaderImage from "@/components/shared/HeaderImage";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useArtistAlbums } from "@/hooks/useArtist";
 import { useParams } from "react-router-dom";

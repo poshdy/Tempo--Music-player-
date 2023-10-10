@@ -2,7 +2,7 @@ import React, { SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-Auth";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "../ui/use-toast";
 import { useSupabase } from "@/hooks/use-SupaBase";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";

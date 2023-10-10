@@ -1,7 +1,6 @@
 import { Button } from "./ui/button";
 import { useModal } from "@/zustand/Modal";
 import { useAuth } from "@/hooks/use-Auth";
-
 import { useToast } from "./ui/use-toast";
 import { AiOutlineHeart } from "react-icons/ai";
 import { Styles } from "@/Styles";
@@ -41,7 +40,7 @@ const AddAlbumToLikes = ({ data }: Props) => {
   return (
     <Button
       onClick={handleClick}
-      className={`w-56 flex ${Styles.transtions} items-center gap-1 justify-center bg-transparent border-2 mt-3 rounded-full hover:bg-yellow-300 hover:text-black`}
+      className={`w-56 flex ${Styles.transtions} items-center gap-1 justify-center bg-transparent border-2 mt-3 rounded-full hover:bg-orange-400 hover:text-black`}
     >
       <AiOutlineHeart size={25} />
     </Button>

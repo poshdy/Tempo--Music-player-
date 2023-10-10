@@ -4,6 +4,7 @@ import usePlayPause from "@/hooks/use-Play-Pause";
 import { Styles } from "@/Styles";
 import { cn } from "@/lib/utils";
 import { Song, ArtistSong, UserSong } from "@/types/types";
+import Image from "../shared/Image";
 
 
 
@@ -25,7 +26,7 @@ const SongCard = ({ song, i, data, className }: Props) => {
       )}
     >
       <div className="w-[95%] aspect-square">
-        <img
+        <Image
           className={`w-full h-full object-cover rounded-md -z-50 hover:scale-105 ${Styles.transtions} `}
           src={
             song?.attributes?.artwork?.url
@@ -34,6 +35,7 @@ const SongCard = ({ song, i, data, className }: Props) => {
             song?.images?.coverart ||
             song?.Image?.replace("{w}", "175").replace("{h}", "175")
           }
+          alt='Song coverart'
         />
       </div>
 

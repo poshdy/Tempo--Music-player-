@@ -1,3 +1,5 @@
+
+
 export type Song = {
   layout: string;
   key: string;
@@ -92,3 +94,86 @@ type Genre = {
   urlPath: string;
   count: number;
 };
+
+type Root = {
+  id?: string
+  type?: string
+  attributes?: Attributes
+  relationships?: Relationships
+  views?: Views
+  meta?: Meta
+}
+
+export interface Attributes {
+  genreNames: string[]
+  name: string
+  artwork: Artwork
+  url: string
+}
+
+export interface Artwork {
+  width: number
+  url: string
+  height: number
+  textColor3: string
+  textColor2: string
+  textColor4: string
+  textColor1: string
+  bgColor: string
+  hasP3: boolean
+}
+
+export interface Relationships {
+  albums: Albums
+}
+
+export interface Albums {
+  data: Daum[]
+}
+
+export interface Daum {
+  id: string
+  type: string
+}
+
+export interface Views {
+  "top-songs": TopSongs
+  "latest-release": LatestRelease
+}
+
+export interface TopSongs {
+  attributes: Attributes2
+  data: Daum2[]
+}
+
+export interface Attributes2 {
+  title: string
+}
+
+export interface Daum2 {
+  id: string
+  type: string
+}
+
+export interface LatestRelease {
+  attributes: Attributes3
+  data: Daum3[]
+}
+
+export interface Attributes3 {
+  title: string
+}
+
+export interface Daum3 {
+  id: string
+  type: string
+}
+
+export interface Meta {
+  views: Views2
+}
+
+export interface Views2 {
+  order: string[]
+}
+
